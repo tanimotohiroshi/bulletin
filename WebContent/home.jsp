@@ -38,7 +38,21 @@
 		<a href="./posting">新規投稿画面へ</a>
 		<br />
 		<br />
+
+
+		<div class="postings">
+			<c:forEach items="${ postings }" var="posting"
+						<c:out value="${ posting.title }" />
+						<c:out value="${ posting.message }" />
+						<c:out value="${ posting.name }" />
+						<fmt:formatDate value="${ posting.update_date }" />
+							pattern="yyyy/MM/dd HH:mm:ss" />
+
+
+		</div>
 	</div>
+
+
 
 
 	<div class="comment-form">
