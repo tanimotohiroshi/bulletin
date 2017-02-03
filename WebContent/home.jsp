@@ -27,28 +27,23 @@
 
 
 	<div class="edit">
-		<a href="./signUp">新規登録</a> <a href="./editUser">ユーザー管理</a><br />
-		<br />
-		<br />
-		<br />
+		<a href="./signUp">新規登録</a> <a href="./editUser">ユーザー管理</a><br /> <br />
+		<br /> <br />
 
 	</div>
 
-	<div class="posting-form">
-		<a href="./posting">新規投稿画面へ</a>
-		<br />
-		<br />
+	<div class="posting-form" >
+		<a href="./posting">新規投稿画面へ</a> <br /> <br />
 
 
 		<div class="postings">
-			<c:forEach items="${ postings }" var="posting"
-						<c:out value="${ posting.title }" />
-						<c:out value="${ posting.message }" />
-						<c:out value="${ posting.name }" />
-						<fmt:formatDate value="${ posting.update_date }" />
+			<c:forEach items="${ postings }" var="posting">
+				<c:out value="${ posting.title }" />
+				<c:out value="${ posting.message }" />
+				<c:out value="${ posting.name }" />
+				<fmt:formatDate value="${ posting.update_date }"
 							pattern="yyyy/MM/dd HH:mm:ss" />
-
-
+			</c:forEach>
 		</div>
 	</div>
 
@@ -57,10 +52,11 @@
 
 	<div class="comment-form">
 		<a href="./comment">コメントする</a><br />
-			<form action="newComment" method="post">コメントする(500文字まで)<br />
-				<textarea name="comment" rows="10"cols="60" class="tweet-box"></textarea><br />
-					<input type="submit" value="コメントする">
-			</form>
+		<form action="newComment" method="post">
+			コメントする(500文字まで)<br />
+			<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea>
+			<br /> <input type="submit" value="コメントする">
+		</form>
 	</div>
 
 
