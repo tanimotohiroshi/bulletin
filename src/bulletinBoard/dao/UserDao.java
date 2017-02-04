@@ -28,8 +28,6 @@ public class UserDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			System.out.println(user.getBranchId());
-
 			ps.setString(1, user.getLoginId());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getName());

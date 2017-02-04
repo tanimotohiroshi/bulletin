@@ -51,7 +51,6 @@
 
 
 	<div class="comment-form">
-		<a href="./comment">コメントする</a><br />
 		<form action="newComment" method="post">
 			コメントする(500文字まで)<br />
 			<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea>

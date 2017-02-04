@@ -57,10 +57,6 @@ public class SignUpServlet extends HttpServlet {
 		user.setBranchId(branchId);
 		user.setDepartmentId(departmentId);
 
-
-
-		System.out.println(user.getName());
-
 		new UserService().register(user);
 
 		response.sendRedirect("./signUp");
