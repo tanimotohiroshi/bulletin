@@ -18,6 +18,7 @@
 		<c:forEach items="${ errorMessages }" var="message"><br />
 			<c:out value="${ message }" />
 		</c:forEach>
+		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
 
 
