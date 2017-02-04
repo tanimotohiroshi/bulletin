@@ -21,7 +21,6 @@ public class UserDao {
 			sql.append("login_id");
 			sql.append(", password");
 			sql.append(", name");
-			sql.append(", is_stopped");
 			sql.append(", branch_id");
 			sql.append(", department_id");
 			sql.append(" ) values ( ");
@@ -29,13 +28,15 @@ public class UserDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			System.out.println("bbb");
+			System.out.println(user.getBranchId());
 
 			ps.setString(1, user.getLoginId());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getName());
 			ps.setInt(4, user.getBranchId());
 			ps.setInt(5, user.getDepartmentId());
+
+			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

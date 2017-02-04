@@ -50,9 +50,6 @@ public class SignUpServlet extends HttpServlet {
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 
 
-		System.out.println(branchId);
-
-
 		User user = new User();
 		user.setLoginId(request.getParameter("loginId"));
 		user.setPassword(request.getParameter("password"));
@@ -63,7 +60,6 @@ public class SignUpServlet extends HttpServlet {
 
 
 		System.out.println(user.getName());
-		System.out.println("aaa");
 
 		new UserService().register(user);
 

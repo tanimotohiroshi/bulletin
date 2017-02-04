@@ -5,12 +5,13 @@ import static  bulletinBoard.utils.DBUtil.*;
 
 import java.sql.Connection;
 
+import bulletinBoard.beans.User;
 import bulletinBoard.dao.UserDao;
 import bulletinBoard.utils.CipherUtil;
 
 public class UserService {
 
-	public void register(bulletinBoard.beans.User user) {
+	public void register(User user) {
 
 		Connection connection = null;
 		try {
