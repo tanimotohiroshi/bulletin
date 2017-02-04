@@ -26,7 +26,9 @@
 	<input name="category" id="category" maxlength="10" /><br /><br />
 
 
-	<input type="submit" value="コメントする">
+	<input type="submit" value="コメントする"><br />
+
+	<a href="./home">ホームへ戻る</a>
 
 
 

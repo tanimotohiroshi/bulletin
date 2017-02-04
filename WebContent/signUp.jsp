@@ -14,16 +14,23 @@
 
 	<h2>ユーザー新規登録画面</h2>
 
+	<c:if test="${ not empty errorMessages }">
+		<c:forEach items="${ errorMessages }" var="message"><br />
+			<c:out value="${ message }" />
+		</c:forEach>
+	</c:if>
+
+
 	<form action="./signUp" method="post">
 
 		<label for="loginId">ログインID</label>
-		<input name="loginId" id="loginId" /><br />
+		<input name="loginId" id="loginId" maxlength="20" /><br />
 
 		<label for="password">パスワード</label>
-		<input name="password" id="password" type="password" /><br />
+		<input name="password" id="password" type="password" maxlength="255" /><br />
 
 		<label for="name">名前</label>
-		<input name="name" id="name" /><br />
+		<input name="name" id="name" maxlength="10"/><br />
 
 
 		<label for="branchId">支店名</label>

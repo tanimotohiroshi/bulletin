@@ -3,6 +3,7 @@ package bulletinBoard.controller;
 import java.io.IOException;
 import java.rmi.ServerException;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,13 @@ import bulletinBoard.service.PostingService;
 @WebServlet(urlPatterns = { "/posting" })
 
 public class PostingServlet extends HttpServlet {
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException,ServletException{
+
+		request.getRequestDispatcher("posting.jsp").forward(request, response);
+	}
 
 
 
@@ -30,7 +38,7 @@ public class PostingServlet extends HttpServlet {
 
 		new PostingService().register(posting);
 
-		response.sendRedirect("./signUp");
+		response.sendRedirect("./home");
 
 
 

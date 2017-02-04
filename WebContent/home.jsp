@@ -13,17 +13,17 @@
 
 	<h3>ホーム画面</h3>
 
+<div class="header">
 
-	<%-- <div class="loginUser">
+	<c:if test="${ empty loginUser }">
+		<a href="login">ログインする</a>
+	</c:if>
+	<c:if test="${ not empty loginUser }">
+		<a href="home">ホーム</a>
+		<a href="logout">ログアウト</a>
+	</c:if>
 
-<c:if test="${ not empty loginUser }">
-	<h2>
-		<c:out value="${ loginUser.name }" />
-	</h2>
-
-
-</div>  --%>
-
+</div>
 
 
 	<div class="edit">
