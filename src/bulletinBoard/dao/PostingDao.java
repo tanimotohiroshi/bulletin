@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import bulletinBoard.beans.Posting;
+import bulletinBoard.beans.User;
 import bulletinBoard.exception.SQLRuntimeException;
 
 public class PostingDao {
@@ -20,11 +21,12 @@ public class PostingDao {
 			sql.append("insert into postings");
 			sql.append(" (user_id, title, message, category, update_date)");
 			sql.append(" values ");
-			sql.append("(?, ?, ?, ?, now()");
+			sql.append("(?, ?, ?, ?, now() )");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setInt(1, posting.getId());
+			/*ログインしているユーザーのIDがDBに送られていない*/
+			ps.setInt(1, User.getId());
 			ps.setString(2, posting.getTitle());
 			ps.setString(3, posting.getMessage());
 			ps.setString(4, posting.getCategory());

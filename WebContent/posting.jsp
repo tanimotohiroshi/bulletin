@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,9 +12,14 @@
 
 <form action="./posting" method="post">
 
+	<c:if test="${ not empty errorMessages }">
+		<c:forEach items="${ errorMessages }" var="message">
+			<c:out value="${ message }" /><br />
+		</c:forEach>
+		<c:remove var="errorMessages" scope="session"/>
+	</c:if>
 
-
-
+<br />
 
 
 	<label for="title" >タイトル(50文字以下)</label><br />
