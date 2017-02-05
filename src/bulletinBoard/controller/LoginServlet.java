@@ -20,6 +20,7 @@ public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID =1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException,ServletException{
 
@@ -33,19 +34,23 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
 
+
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
+
+		System.out.println(loginId);
 
 		LoginService loginService = new LoginService();
 		User user = loginService.login(loginId, password);
 
-		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
+
 
 		if (user != null) {
 			session.setAttribute("loginUser", user);
 			response.sendRedirect("./home");
 		} else {
+			List<String> messages = new ArrayList<String>();
 			messages.add("ログインに失敗しました");
 			session.setAttribute("errorMessages", messages);
 			request.getRequestDispatcher("login.jsp").forward(request, response);

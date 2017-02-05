@@ -19,7 +19,9 @@
 		<a href="login">ログインする</a>
 	</c:if>
 	<c:if test="${ not empty loginUser }">
+		<c:out value="${ loginUser.name }" /><br />
 		<a href="home">ホーム</a>
+		<a href="./posting">新規投稿画面へ</a> <br /> <br />
 		<a href="logout">ログアウト</a>
 	</c:if>
 
@@ -33,7 +35,7 @@
 	</div>
 
 	<div class="posting-form" >
-		<a href="./posting">新規投稿画面へ</a> <br /> <br />
+
 
 
 		<div class="postings">

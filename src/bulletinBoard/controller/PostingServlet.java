@@ -17,6 +17,7 @@ import bulletinBoard.service.PostingService;
 public class PostingServlet extends HttpServlet {
 
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException,ServletException{
 
