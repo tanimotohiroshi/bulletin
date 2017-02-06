@@ -39,19 +39,26 @@
 
 
 		<div class="postings">
-			<c:forEach items="${ postings }" var="postings">
-				<c:out value="${ postings.title }" /><br />
-				<c:out value="${ postings.message }" /><br />
-				<c:out value="${ postings.name }" /><br />
-				<c:out value="${ postings.category }" /><br />
-				<fmt:formatDate value="${ postings.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
+			<c:forEach items="${ postings }" var="posting">
+				<c:out value="${ posting.id }" /><br />
+				<c:out value="${ posting.title }" /><br />
+				<c:out value="${ posting.message }" /><br />
+				<c:out value="${ posting.name }" /><br />
+				<c:out value="${ posting.category }" /><br />
+				<fmt:formatDate value="${ posting.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
 
-			<%-- <div class="comment-form">
-				<c:forEach items="${ comment } var="comment">
-					<c:out value="">コメント</c:out>
+				<div class="comment-form">
+
+				<c:forEach items="${ comments }" var="comment" >
+
+				<c:if test="${ posting.id == comment.postingId }" >
+					<c:out value="${ comment.name }" />
+					<c:out value="${ comment.message }" />
+					<fmt:formatDate value="${ comment.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
+				</c:if>
 				</c:forEach>
 				</div>
-			--%>
+
 				<font color="red">
 					<c:if test="${ not empty errorMessages }">
 						<c:forEach items="${ errorMessages }" var="messages" >
@@ -62,7 +69,7 @@
 				</font>
 				<form action="./comment" method="post">コメントする(500文字まで)<br />
 					<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea><br />
-					<input type="hidden" name="postingId" value="${ postings.id }" >
+					<input type="hidden" name="postingId" value="${ posting.id }" >
 					<input type="submit" value="コメントする">
 				</form>
 			</c:forEach>
