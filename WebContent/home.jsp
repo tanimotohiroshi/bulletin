@@ -39,12 +39,32 @@
 
 
 		<div class="postings">
-			<c:forEach items="${ postings }" var="posting">
-				<c:out value="${ posting.title }" />
-				<c:out value="${ posting.message }" />
-				<c:out value="${ posting.name }" />
-				<fmt:formatDate value="${ posting.update_date }"
-							pattern="yyyy/MM/dd HH:mm:ss" />
+			<c:forEach items="${ postings }" var="postings">
+				<c:out value="${ postings.title }" /><br />
+				<c:out value="${ postings.message }" /><br />
+				<c:out value="${ postings.name }" /><br />
+				<c:out value="${ postings.category }" /><br />
+				<fmt:formatDate value="${ postings.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
+
+			<%-- <div class="comment-form">
+				<c:forEach items="${ comment } var="comment">
+					<c:out value="">コメント</c:out>
+				</c:forEach>
+				</div>
+			--%>
+				<font color="red">
+					<c:if test="${ not empty errorMessages }">
+						<c:forEach items="${ errorMessages }" var="messages" >
+							<c:out value="${ messages }" /><br /><br />
+						</c:forEach>
+						<c:remove var="errorMessages" scope="session"/>
+					</c:if>
+				</font>
+				<form action="./comment" method="post">コメントする(500文字まで)<br />
+					<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea><br />
+					<input type="hidden" name="postingId" value="${ postings.id }" >
+					<input type="submit" value="コメントする">
+				</form>
 			</c:forEach>
 		</div>
 	</div>
@@ -52,13 +72,7 @@
 
 
 
-	<div class="comment-form">
-		<form action="newComment" method="post">
-			コメントする(500文字まで)<br />
-			<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea>
-			<br /> <input type="submit" value="コメントする">
-		</form>
-	</div>
+
 
 
 

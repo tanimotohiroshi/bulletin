@@ -3,16 +3,14 @@ package bulletinBoard.beans;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Posting implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class Comment implements Serializable {
 
 	private int id;
+	private int postingId;
 	private int userId;
-	private String title;
 	private String message;
-	private String category;
 	private Date updateDate;
+
 
 
 	public int getId() {
@@ -21,17 +19,17 @@ public class Posting implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getPostingId() {
+		return postingId;
+	}
+	public void setPostingId(int postingId) {
+		this.postingId = postingId;
+	}
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getMessage() {
 		return message;
@@ -39,23 +37,11 @@ public class Posting implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
 	public Date getUpdateDate() {
 		return updateDate;
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
-
 
 }
