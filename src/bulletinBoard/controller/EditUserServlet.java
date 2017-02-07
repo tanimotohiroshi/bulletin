@@ -24,6 +24,9 @@ public class EditUserServlet extends HttpServlet {
 
 
 		System.out.println(request.getParameter("id"));
+		
+		
+		
 
 		/*ここからURL直打ちのバリデーション*/
 		HttpSession sessionValid = request.getSession();
