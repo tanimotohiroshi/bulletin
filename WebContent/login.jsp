@@ -40,6 +40,8 @@
 </form>
 
 
+<br /><br /><br /><br />
+<div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
 </body>
 </html>

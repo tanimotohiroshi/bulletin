@@ -11,43 +11,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bulletinBoard.beans.Branch;
-import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
-import bulletinBoard.service.BranchService;
-import bulletinBoard.service.DepartmentService;
 import bulletinBoard.service.UserService;
 
-@WebServlet(urlPatterns = { "/signUp" })
+@WebServlet(urlPatterns = { "/editUser" })
 
-public class SignUpServlet extends HttpServlet {
+public class EditUserServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException,
-
-			ServletException {
-
-		HttpSession branchSession = request.getSession();
-		HttpSession departmentSession = request.getSession();
-
-		List<Branch> branchList = new BranchService().getBranch();
-		branchSession.setAttribute("branchList", branchList);
-
-		List<Department> departmentList = new DepartmentService().getDepartment();
-		departmentSession.setAttribute("departmentList", departmentList);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws IOException, ServletException{
 
 
+		System.out.println(request.getParameter("id"));
 
-
-		/*ここから直打ちのバリデーション*/
-		HttpSession session = request.getSession();
+		/*ここからURL直打ちのバリデーション*/
+		HttpSession sessionValid = request.getSession();
 		List<String> messages = new ArrayList<String>();
 
 		if (isValid(request, messages) == true) {
 
-			request.getRequestDispatcher("signUp.jsp").forward(request, response);
+			request.getRequestDispatcher("editUser.jsp").forward(request, response);
 		} else {
-			session.setAttribute("controlErrorMessages", messages);
+			sessionValid.setAttribute("controlErrorMessages", messages);
 			response.sendRedirect("./home");
 		}
 	}
@@ -57,7 +43,13 @@ public class SignUpServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
 
-		if (user.getDepartmentId() != 1) {
+		String departmentId = String.valueOf(user.getDepartmentId());
+
+		if ( departmentId == null) {
+			messages.add("ログインしてください");
+		}
+
+		if (user.getDepartmentId() != 1 ) {
 			messages.add("管理画面には入れません");
 		}
 
@@ -69,12 +61,11 @@ public class SignUpServlet extends HttpServlet {
 
 	}
 
-
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		/*ユーザー項目に適しているか*/
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 
@@ -92,10 +83,11 @@ public class SignUpServlet extends HttpServlet {
 
 			new UserService().register(user);
 
-			response.sendRedirect("./home");
+			response.sendRedirect("./controlUser");
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("./signUp");
+
+			response.sendRedirect("./editUser");
 		}
 	}
 

@@ -24,7 +24,7 @@ public class PostingDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			/*ログインしているユーザーのIDがDBに送られていない*/
+		
 			ps.setInt(1, posting.getUserId());
 			ps.setString(2, posting.getTitle());
 			ps.setString(3, posting.getMessage());

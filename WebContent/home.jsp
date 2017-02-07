@@ -15,24 +15,27 @@
 
 <div class="header">
 
+	<font color="red">
+		<c:if test="${ not empty controlErrorMessages }">
+			<c:out value="${ controlErrorMessages }" /><br /><br />
+			<c:remove var="controlErrorMessages" scope="session"/>
+		</c:if>
+	</font>
+
+
 	<c:if test="${ empty loginUser }">
 		<a href="login">ログインする</a>
 	</c:if>
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
-		<a href="home">ホーム</a>
-		<a href="./posting">新規投稿画面へ</a> <br /> <br />
+		<a href="./controlUser">ユーザー管理画面へ</a> <br /> <br />
+		<a href="home">ホーム</a><br />
 		<a href="logout">ログアウト</a>
 	</c:if>
-
 </div>
 
+<br /><br /><br />
 
-	<div class="edit">
-		<a href="./signUp">新規登録</a> <a href="./editUser">ユーザー管理</a><br /> <br />
-		<br /> <br />
-
-	</div>
 
 	<div class="posting-form" >
 
@@ -40,7 +43,6 @@
 
 		<div class="postings">
 			<c:forEach items="${ postings }" var="posting">
-				<c:out value="${ posting.id }" /><br />
 				<c:out value="${ posting.title }" /><br />
 				<c:out value="${ posting.message }" /><br />
 				<c:out value="${ posting.name }" /><br />
@@ -83,7 +85,7 @@
 
 
 
-
+<br /><br /><br />
 
 	<div class="copyright">copyright(c) tanimotohiroshi</div>
 
