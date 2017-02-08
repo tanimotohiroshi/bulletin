@@ -15,15 +15,36 @@
 
 <h3>ユーザー編集画面</h3>
 
+<font color="red">
+	<c:if test="${ not empty editErrorMessages }">
+		<c:forEach items="${ editErrorMessages }" var="message"><br />
+			<c:out value="${ message }" />
+		</c:forEach>
+		<c:remove var="errorMessages" scope="session"/>
+	</c:if>
+</font>
 
-<label for="loginId">ログインID</label>
-		<input name="loginId" id="loginId" maxlength="20"  /><br />
+	<form action="./editUser" method="post">
+
+		<input type="hidden" name="id" value="${ editUserReading.id }" />
+
+		<label for="loginId">ログインID</label>
+		<input name="loginId" id="loginId" maxlength="20"
+		value="${ editUserReading.loginId }" /><br />
 
 		<label for="password">パスワード</label>
-		<input name="password" id="password" type="password" maxlength="255" value="${ user.password }" /><br />
+		<input name="password2" id="password" type="password" maxlength="255"
+		value="${ password2 }"/><br />
+
+		<label for="password">パスワード(確認用)</label>
+		<input name="password3" id="password" type="password" maxlength="255"
+		value="${ password3 }" /><br />
+
+		<input type="hidden" name="password1" value="${ editUserReading.password }" >
 
 		<label for="name">名前</label>
-		<input name="name" id="name" maxlength="10" value="${ user.name }"/><br />
+		<input name="name" id="name" maxlength="10"
+		value="${ editUserReading.name }"/><br />
 
 
 <label for="branchId">支店名</label>
@@ -42,7 +63,11 @@
 		<br />
 		<br />
 
-		<input type="submit" value="登録" /> <br />
+		<input type="submit" value="登録" />
+	</form>
+
+		<br />
+		<br />
 
 		<a href="controlUser">ユーザー管理画面へ</a>
 

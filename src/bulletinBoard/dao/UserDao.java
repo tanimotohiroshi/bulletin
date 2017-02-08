@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bulletinBoard.beans.User;
+import bulletinBoard.exception.NoRowsUpdatedRuntimeException;
 import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserDao {
@@ -75,6 +76,33 @@ public class UserDao {
 		}
 	}
 
+	public User getUser(Connection connection, int id) {
+
+		PreparedStatement ps = null;
+
+		try {
+			String sql = "select * from users where id = ?";
+
+			ps = connection.prepareStatement(sql);
+
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+			List<User> editUserList = toUserList(rs);
+
+			if (editUserList.isEmpty()) {
+				return null;
+			} else {
+				return editUserList.get(0);
+			}
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
 	private List<User> toUserList(ResultSet rs) throws SQLException {
 
 		List<User> ret = new ArrayList<User>();
@@ -103,4 +131,38 @@ public class UserDao {
 			close(rs);
 		}
 	}
+
+	public void update(Connection connection, User user) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("update users set");
+			sql.append(" login_id = ?, password = ?, name = ?, branch_id = ?, department_id = ?");
+			sql.append(" WHERE");
+			sql.append(" id = ? ");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, user.getLoginId());
+			ps.setString(2, user.getPassword());
+			ps.setString(3, user.getName());
+			ps.setInt(4, user.getBranchId());
+			ps.setInt(5, user.getDepartmentId());
+			ps.setInt(6, user.getId());
+
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+
+	}
+
+
 }

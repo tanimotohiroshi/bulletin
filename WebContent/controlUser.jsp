@@ -24,7 +24,7 @@
 			<input type="submit" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
-			<br /><br /><br />
+			<br /><br />
 		</c:forEach>
 	</div>
 
