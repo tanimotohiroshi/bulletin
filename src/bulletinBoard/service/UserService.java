@@ -61,17 +61,60 @@ public class UserService {
 	}
 
 
+
 	public void update(User user) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			
-			String encPassword = CipherUtil.encrypt(user.getPassword());
-			user.setPassword(encPassword);
-			
+
 			UserDao userDao = new UserDao();
 			userDao.update(connection, user);
+
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public void passwordUpdate(User user) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			String encPassword = CipherUtil.encrypt(user.getPassword());
+			user.setPassword(encPassword);
+
+			UserDao userDao = new UserDao();
+			userDao.passwordUpdate(connection, user);
+
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public void stoppedId(User userStopId) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserDao userDao = new UserDao();
+			userDao.stopIdUpdate(connection, userStopId);
 
 			commit(connection);
 		} catch (RuntimeException e) {

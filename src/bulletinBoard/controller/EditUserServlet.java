@@ -38,8 +38,6 @@ public class EditUserServlet extends HttpServlet {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 
-
-
 		User user = new UserService().getUserId(id);
 
 		request.setAttribute("editUserReading", user);
@@ -81,76 +79,63 @@ public class EditUserServlet extends HttpServlet {
 
 	}
 
-
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		/* ユーザー項目に適しているか */
+
 		List<String> messages = new ArrayList<String>();
-//		HttpSession session = request.getSession();
 
 		int id = Integer.parseInt(request.getParameter("id"));
+		String loginId = request.getParameter("loginId");
+		String name = request.getParameter("name");
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
-		String loginId = request.getParameter("loginId");
-		String password1 = request.getParameter("password1");
-		String name = request.getParameter("name");
-		String password2 = request.getParameter("password2");
-		String password3 = request.getParameter("password3");
-
+		String password1 = request.getParameter("password1");// 入力用パスワード
+		String password2 = request.getParameter("password2");// 確認用パスワード
 
 		User user = new User();
 
-		/* パスワードが空白の時 */
-		if (password2.length() == 0 || password3.length() == 0) {
-			String password = password1;
-			user.setPassword(password);
-
-		} else {
-			String password = password2;
-			if (!password.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
-				messages.add("半角英数字6文字以上255文字以内で");
-			} else {
-				user.setPassword(password2);
-			}
-		}
-
-
-
-		user.setId(id);
-		user.setLoginId(loginId);
-		user.setName(name);
-		user.setBranchId(branchId);
-		user.setDepartmentId(departmentId);
-
-
 		if (isValidation(request, messages) == true) {
-			new UserService().update(user);
+
+			user.setId(id);
+			user.setLoginId(loginId);
+			user.setName(name);
+			user.setBranchId(branchId);
+			user.setDepartmentId(departmentId);
+			if (password1.length() == 0 || password2.length() == 0) {
+
+				new UserService().update(user);
+			} else {
+
+				user.setPassword(password2);
+				new UserService().passwordUpdate(user);
+			}
+
 			response.sendRedirect("./controlUser");
 		} else {
-			request.setAttribute("editErrorMessages", messages);
-			request.setAttribute("editUserReading", user );
-			request.getRequestDispatcher("./editUser.jsp").forward(request, response);
+			request.setAttribute("errorMessages", messages);
+			request.setAttribute("ediUser", user);
+			response.sendRedirect("./editUser");
 		}
 	}
 
 	private boolean isValidation(HttpServletRequest request, List<String> messages) {
+
 		String loginId = request.getParameter("loginId");
 		String name = request.getParameter("name");
-		String password2 = request.getParameter("password2");
-		String password3 = request.getParameter("password3");
+		String password1 = request.getParameter("password1");// 入力用パスワード
+		String password2 = request.getParameter("password2");// 確認用パスワード
 
-
-
-
-
-		/* 確認用のパスと入力のパスが同じかどうか */
-		if (! password2.equals(password3) ) {
+		if (!password1.equals(password2)) {
 			messages.add("パスワードが一致しません");
 		}
 
+		if (password1.length() != 0 || password2.length() != 0) {
+			if (!password1.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
+				messages.add("半角英数字6文字以上255文字以内で");
+			}
+		}
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
 			messages.add("半角英数字6文字以上で");
@@ -166,5 +151,10 @@ public class EditUserServlet extends HttpServlet {
 			return false;
 		}
 	}
+
+
+
+
+
 
 }

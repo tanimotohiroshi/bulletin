@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import bulletinBoard.beans.ControlUser;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.ControlUserService;
+import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/controlUser" })
 
@@ -23,14 +24,13 @@ public class ControlUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		/*ユーザーの一覧表示*/
+		/* ユーザーの一覧表示 */
 		List<ControlUser> controlUser = new ControlUserService().getControlUser();
 		HttpSession session = request.getSession();
 
 		session.setAttribute("usersList", controlUser);
 
-
-		/*ここから総務以外を絞る部分*/
+		/* ここから総務以外を絞る部分 */
 		List<String> messages = new ArrayList<String>();
 
 		if (isValid(request, messages) == true) {
@@ -48,7 +48,6 @@ public class ControlUserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
 
-
 		if (user.getDepartmentId() != 1) {
 			messages.add("管理画面には入れません");
 		}
@@ -60,4 +59,30 @@ public class ControlUserServlet extends HttpServlet {
 		}
 
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		/* ユーザーの停止復活処理 */
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		User userStopId = new User();
+
+		if (request.getParameter("permitId") != null) {
+			int permitId = Integer.parseInt(request.getParameter("permitId"));
+			userStopId.setId(id);
+			userStopId.setIsStopped(permitId);
+		} else {
+			int stopId = Integer.parseInt(request.getParameter("stopId"));
+			userStopId.setId(id);
+			userStopId.setIsStopped(stopId);
+		}
+
+		new UserService().stoppedId(userStopId);
+
+		response.sendRedirect("./controlUser");
+
+	}
+
 }

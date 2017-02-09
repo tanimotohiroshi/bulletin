@@ -33,14 +33,12 @@
 		value="${ editUserReading.loginId }" /><br />
 
 		<label for="password">パスワード</label>
-		<input name="password2" id="password" type="password" maxlength="255"
+		<input name="password1" id="password" type="password" maxlength="255"
 		value="${ password2 }"/><br />
 
 		<label for="password">パスワード(確認用)</label>
-		<input name="password3" id="password" type="password" maxlength="255"
+		<input name="password2" id="password" type="password" maxlength="255"
 		value="${ password3 }" /><br />
-
-		<input type="hidden" name="password1" value="${ editUserReading.password }" >
 
 		<label for="name">名前</label>
 		<input name="name" id="name" maxlength="10"

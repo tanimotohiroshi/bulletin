@@ -9,6 +9,7 @@ public class User implements Serializable{
 	private String loginId;
 	private String password;
 	private String name;
+	private int isStopped;
 	private int branchId;
 	private int departmentId;
 
@@ -17,6 +18,7 @@ public class User implements Serializable{
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -38,7 +40,12 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public int getIsStopped() {
+		return isStopped;
+	}
+	public void setIsStopped(int isStopped) {
+		this.isStopped = isStopped;
+	}
 	public int getBranchId() {
 		return branchId;
 	}

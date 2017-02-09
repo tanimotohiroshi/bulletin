@@ -24,6 +24,21 @@
 			<input type="submit" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
+
+				<form action="./controlUser" method="post" >
+				<c:if test="${ user.isStopped == 1}" >
+				<input type="hidden" name="stopId" value="0" >
+				<input type="hidden" name="id" value="${ user.id }" >
+				<input type="submit" value="停止" />
+				</c:if>
+				<c:if test="${ user.isStopped == 0 }" >
+				<input type="hidden" name="permitId" value="1" >
+				<input type="hidden" name="id" value="${ user.id }" >
+				<input type="submit" value="復活" >
+				</c:if>
+				</form>
+
+
 			<br /><br />
 		</c:forEach>
 	</div>

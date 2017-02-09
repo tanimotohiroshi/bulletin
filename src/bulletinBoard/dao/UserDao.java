@@ -53,12 +53,13 @@ public class UserDao {
 		PreparedStatement ps = null;
 
 		try {
-			String sql = "select*from users where login_id = ? and password=?";
+			String sql = "select*from users where login_id = ? and password = ? ";
 
 			ps = connection.prepareStatement(sql);
 
 			ps.setString(1, loginId);
 			ps.setString(2, password);
+
 
 			ResultSet rs = ps.executeQuery();
 			List<User> userList = toUserList(rs);
@@ -132,7 +133,9 @@ public class UserDao {
 		}
 	}
 
-	public void update(Connection connection, User user) {
+
+	/*パスワードの変更がある時のアップデート*/
+	public void passwordUpdate(Connection connection, User user) {
 
 		PreparedStatement ps = null;
 		try {
@@ -162,6 +165,64 @@ public class UserDao {
 			close(ps);
 		}
 
+	}
+
+		/*パスワードの変更がない時のアップデート*/
+	public void update(Connection connection, User user) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("update users set");
+			sql.append(" login_id = ?, name = ?, branch_id = ?, department_id = ?");
+			sql.append(" WHERE");
+			sql.append(" id = ? ");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, user.getLoginId());
+			ps.setString(2, user.getName());
+			ps.setInt(3, user.getBranchId());
+			ps.setInt(4, user.getDepartmentId());
+			ps.setInt(5, user.getId());
+
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	public void stopIdUpdate(Connection connection, User userStopId) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("update users set");
+			sql.append(" is_stopped = ?");
+			sql.append(" where");
+			sql.append(" id = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt(1, userStopId.getIsStopped());
+			ps.setInt(2, userStopId.getId());
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
 	}
 
 

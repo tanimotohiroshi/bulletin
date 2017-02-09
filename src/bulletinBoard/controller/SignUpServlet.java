@@ -81,6 +81,8 @@ public class SignUpServlet extends HttpServlet {
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 
+
+
 		if (isValidation(request, messages) == true) {
 
 			User user = new User();
