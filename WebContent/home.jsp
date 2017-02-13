@@ -23,9 +23,7 @@
 	</font>
 
 
-	<c:if test="${ empty loginUser }">
-		<a href="login">ログインする</a>
-	</c:if>
+
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
 		<a href="controlUser">ユーザー管理画面へ</a> <br />
@@ -38,8 +36,45 @@
 <br /><br /><br />
 
 
-	<div class="posting-form" >
 
+
+ <div class="category-form">
+ 	<form action="./home" method="post">
+		<label for="category">カテゴリー</label>
+		<select name="category">
+			<c:forEach items="${ postings }" var="posting"><br />
+				<option value="${ posting.category }" ><c:out value="${ posting.category }" /></option>
+			</c:forEach>
+		</select>
+		<input type="submit" value="絞込み" />
+	</form>
+</div>
+
+
+<div class="updateDate">
+	<form action="./home" method="post">
+		<label for="date">投稿日時</label>
+		<select name="updateDate">
+			<c:forEach items="${ postings }" var="posting"><br />
+				<option value="${ posting.updateDate }" >
+				<fmt:formatDate value="${ posting.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" />
+				</option>
+			</c:forEach>
+		</select>
+		<input type="submit" value="絞込み" />
+	</form>
+</div>
+
+
+
+
+<br /><br />
+
+
+
+
+
+	<div class="posting-form" >
 
 
 		<div class="postings">
@@ -71,7 +106,7 @@
 					</c:if>
 				</font>
 				<form action="./comment" method="post">コメントする(500文字まで)<br />
-					<textarea name="comment" rows="10" cols="60" class="tweet-box"></textarea><br />
+					<textarea name="comment" rows="10" cols="50" class="tweet-box"></textarea><br />
 					<input type="hidden" name="postingId" value="${ posting.id }" >
 					<input type="submit" value="コメントする">
 				</form>

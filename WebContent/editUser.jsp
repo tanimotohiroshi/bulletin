@@ -45,7 +45,7 @@
 		value="${ editUserReading.name }"/><br />
 
 
-<label for="branchId">支店名</label>
+		<label for="branchId">支店名</label>
 		<select name="branchId">
 			<c:forEach items="${ branchList }" var="branch"><br />
 				<option value="${ branch.id }" ><c:out value="${ branch.name }" /></option>
