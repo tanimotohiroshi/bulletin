@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.LoginService;
 
-@WebServlet(urlPatterns = { "/login"} )
+@WebServlet(urlPatterns = { "/index.jsp"} )
 
 public class LoginServlet extends HttpServlet {
 
@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException,ServletException{
+
 
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
@@ -38,18 +39,22 @@ public class LoginServlet extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
-
 		LoginService loginService = new LoginService();
 		User user = loginService.login(loginId, password);
-
 
 		HttpSession session = request.getSession();
 		List<String> messages = new ArrayList<String>();
 
 
 		if (user != null) {
-			session.setAttribute("loginUser", user);
-			response.sendRedirect("./home");
+			if (user.getIsStopped() == 1) {
+				messages.add("アカウントが停止されています");
+				session.setAttribute("errorMessages", messages);
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			} else {
+				session.setAttribute("loginUser", user);
+				response.sendRedirect("./home");
+			}
 		} else {
 			messages.add("ログインに失敗しました");
 			session.setAttribute("errorMessages", messages);

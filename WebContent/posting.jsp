@@ -12,12 +12,14 @@
 
 <form action="./posting" method="post">
 
+	<font color="red">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message">
 			<c:out value="${ message }" /><br />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
+	</font>
 
 <br />
 

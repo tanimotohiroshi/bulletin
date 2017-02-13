@@ -14,12 +14,14 @@
 
 	<h2>ユーザー新規登録画面</h2>
 
+	<font color="red">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message"><br />
 			<c:out value="${ message }" />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
+	</font>
 
 
 	<form action="./signUp" method="post">

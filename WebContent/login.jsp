@@ -12,20 +12,20 @@
 
 <h3>ログイン画面</h3>
 
-
+	<font color="red">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message">
 			<c:out value="${ message }" />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
-
+	</font>
 
 <br /><br />
 
 
 
-<form action="./login" method="post">
+<form action="./" method="post">
 
 	<label for="loginId">ログインIDを入力してください</label><br />
 	<input name="loginId" id="loginId" /><br />
@@ -35,7 +35,7 @@
 
 	<input type="submit"  value="送信" /><br />
 
-	<a href="./home">ホームへ戻る</a>
+
 
 </form>
 

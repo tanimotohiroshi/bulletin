@@ -53,13 +53,13 @@ public class UserDao {
 		PreparedStatement ps = null;
 
 		try {
-			String sql = "select*from users where login_id = ? and password = ? ";
+			String sql = "select * from users where login_id = ? and password = ?";
 
 			ps = connection.prepareStatement(sql);
 
+
 			ps.setString(1, loginId);
 			ps.setString(2, password);
-
 
 			ResultSet rs = ps.executeQuery();
 			List<User> userList = toUserList(rs);
@@ -113,6 +113,7 @@ public class UserDao {
 				String loginId = rs.getString("login_id");
 				String password = rs.getString("password");
 				String name = rs.getString("name");
+				int isStopped = rs.getInt("is_stopped");
 				int branchId = rs.getInt("branch_id");
 				int departmentId = rs.getInt("department_id");
 
@@ -122,6 +123,7 @@ public class UserDao {
 				user.setLoginId(loginId);
 				user.setPassword(password);
 				user.setName(name);
+				user.setIsStopped(isStopped);
 				user.setBranchId(branchId);
 				user.setDepartmentId(departmentId);
 

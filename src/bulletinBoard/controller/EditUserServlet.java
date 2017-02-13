@@ -96,6 +96,8 @@ public class EditUserServlet extends HttpServlet {
 
 		User user = new User();
 
+
+
 		if (isValidation(request, messages) == true) {
 
 			user.setId(id);
