@@ -94,7 +94,7 @@ public class SignUpServlet extends HttpServlet {
 
 			new UserService().register(user);
 
-			response.sendRedirect("./home");
+			response.sendRedirect("./controlUser");
 		} else {
 			session.setAttribute("errorMessages", messages);
 			response.sendRedirect("./signUp");
@@ -114,6 +114,8 @@ public class SignUpServlet extends HttpServlet {
 		}
 		if (name.length() < 1) {
 			messages.add("1文字以上で");
+		} else if (name.length() > 11) {
+			messages.add("10文字以内で");
 		}
 
 		if (messages.size() == 0) {

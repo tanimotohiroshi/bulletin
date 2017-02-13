@@ -69,12 +69,12 @@ public class ControlUserServlet extends HttpServlet {
 
 		User userStopId = new User();
 
-		if (request.getParameter("permitId") != null) {
-			int permitId = Integer.parseInt(request.getParameter("permitId"));
+		if (request.getParameter("stopId") != null) {
+			int permitId = Integer.parseInt(request.getParameter("stopId"));
 			userStopId.setId(id);
 			userStopId.setIsStopped(permitId);
 		} else {
-			int stopId = Integer.parseInt(request.getParameter("stopId"));
+			int stopId = Integer.parseInt(request.getParameter("permitId"));
 			userStopId.setId(id);
 			userStopId.setIsStopped(stopId);
 		}

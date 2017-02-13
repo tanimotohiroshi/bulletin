@@ -28,7 +28,8 @@
 	</c:if>
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
-		<a href="./controlUser">ユーザー管理画面へ</a> <br /> <br />
+		<a href="controlUser">ユーザー管理画面へ</a> <br />
+		<a href="posting">新規投稿</a><br />
 		<a href="home">ホーム</a><br />
 		<a href="logout">ログアウト</a>
 	</c:if>

@@ -62,14 +62,24 @@ public class PostingServlet extends HttpServlet {
 		String message = request.getParameter("message");
 		String category = request.getParameter("category");
 
-		if (title.length() == 0) {
+		if (title.length() < 1) {
 			messages.add("タイトルを入力してください");
+		} else if (title.length() > 51) {
+			messages.add("50文字以下で入力してください");
 		}
-		if (message.length() == 0) {
+
+
+		if (message.length() < 1) {
 			messages.add("投稿内容を入力してください");
+		} else if (message.length() > 1001) {
+			messages.add("投稿内容は1000文字以下で入力してください");
 		}
+
+
 		if (category.length() == 0) {
 			messages.add("カテゴリーを入力してください");
+		} else if (category.length() > 11) {
+			messages.add("カテゴリーは10文字以内で入力してください");
 		}
 
 

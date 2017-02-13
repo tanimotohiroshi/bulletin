@@ -25,7 +25,6 @@ public class LoginFilter implements Filter {
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			Object loginCheck = session.getAttribute("loginUser");
 
-			System.out.println(target);
 			if (loginCheck == null ){
 				if ( target.matches("\\/[a-zA-Z]{13}\\/")) {
 					chain.doFilter(request, response);

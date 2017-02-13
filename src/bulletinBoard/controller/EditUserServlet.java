@@ -145,6 +145,8 @@ public class EditUserServlet extends HttpServlet {
 
 		if (name.length() < 1) {
 			messages.add("1文字以上で");
+		} else if (name.length() > 11) {
+			messages.add("10文字以内で");
 		}
 
 		if (messages.size() == 0) {

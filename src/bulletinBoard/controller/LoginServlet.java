@@ -24,6 +24,12 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException,ServletException{
 
+		HttpSession session = request.getSession();
+		Object loginCheck = session.getAttribute("loginUser");
+
+		if ( loginCheck != null) {
+			request.getRequestDispatcher("home.jsp").forward(request, response);
+		}
 
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
