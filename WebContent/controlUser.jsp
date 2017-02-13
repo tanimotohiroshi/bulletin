@@ -8,6 +8,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー管理画面</title>
+
+
+<script type="text/javascript">
+
+	function disp(){
+		if ( window.confirm('よろしいですか')) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+</script>
+
 </head>
 <body>
 
@@ -15,6 +29,7 @@
 
 	<a href="./signUp">ユーザー新規登録</a>
 <br /><br /><br />
+
 
 
 	<div class="usersList">
@@ -25,18 +40,21 @@
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
 
-				<form action="./controlUser" method="post" >
-				<c:if test="${ user.isStopped == 1}" >
-				<input type="hidden" name="stopId" value="0" >
-				<input type="hidden" name="id" value="${ user.id }" >
-				<input type="submit" value="復活" />
-				</c:if>
-				<c:if test="${ user.isStopped == 0 }" >
-				<input type="hidden" name="permitId" value="1" >
-				<input type="hidden" name="id" value="${ user.id }" >
-				<input type="submit" value="停止" >
-				</c:if>
-				</form>
+
+			<form action="./controlUser" method="post" >
+
+			<c:if test="${ user.isStopped == 1}" >
+			<input type="hidden" name="stopId" value="0" >
+			<input type="hidden" name="id" value="${ user.id }" >
+			<input type="submit" value="復活" onClick="return disp();" />
+			</c:if>
+
+			<c:if test="${ user.isStopped == 0 }" >
+			<input type="hidden" name="permitId" value="1" >
+			<input type="hidden" name="id" value="${ user.id }" >
+			<input type="submit" value="停止" onClick="return disp();" />
+			</c:if>
+			</form>
 
 
 			<br /><br />
