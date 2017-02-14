@@ -27,6 +27,12 @@ public class HomeServlet extends HttpServlet{
 
 		User user = (User) request.getSession().getAttribute("loginUser");
 
+		String category = request.getParameter("category");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+
+		System.out.println(category);
+
 		boolean homePostings;
 		if (user != null) {
 			homePostings = true;
@@ -35,18 +41,22 @@ public class HomeServlet extends HttpServlet{
 		}
 
 		List<UserPostings> postings = new PostingService().getPostings();
+		List<UserPostings> validPostings = new PostingService().validPosting
+				(startDate, endDate, category);
 
 		HttpSession session = request.getSession();
 
-		session.setAttribute("postings", postings);
-		request.setAttribute("homePosting", homePostings);
+//		if ( startDate == null) {
+//			session.setAttribute("postings", postings);
+//			request.setAttribute("homePosting", homePostings);
+//		} else {
+			session.setAttribute("postings", validPostings);
+			request.setAttribute("homePosting", homePostings);
+//		}
+
 
 		List<UserComment> comments = new CommentService().getComment();
-
-
 		session.setAttribute("comments", comments);
-
-
 
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 

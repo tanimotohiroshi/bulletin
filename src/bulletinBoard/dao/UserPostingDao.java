@@ -15,13 +15,14 @@ import bulletinBoard.exception.SQLRuntimeException;
 
 public class UserPostingDao {
 
-	public List<UserPostings> getUserPostings (Connection connection ) {
+	public List<UserPostings> getUserPostings(Connection connection) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select");
-			sql.append(" name, postings.title, postings.message, postings.category, postings.update_date, postings.id ");
+			sql.append(
+					" name, postings.title, postings.message, postings.category, postings.update_date, postings.id ");
 			sql.append(" from users left join postings on users.id = postings.user_id ");
 			sql.append(" order by postings.id desc;");
 
@@ -37,9 +38,43 @@ public class UserPostingDao {
 		}
 	}
 
+	/* 日時とカテゴリーの絞り込み */
+	public List<UserPostings> getValidPostings(Connection connection, String startDate, String endDate,
+			String category) {
 
-	private List<UserPostings> toUserPostingsList (ResultSet rs)
-		throws SQLException {
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("select name, postings.title, postings.message, postings.category, postings.update_date");
+			sql.append(" , postings.id from users left join postings on users.id = postings.user_id ");
+			sql.append(" where update_date between ? and ? ");
+			if (category != null ){
+				if (category.length() != 0){
+				sql.append(" and category = ?");
+				}
+			}
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, startDate);
+			ps.setString(2, endDate);
+			if ( category != null) {
+				if ( category.length() != 0) {
+				ps.setString(3, category);
+				}
+			}
+
+			ResultSet rs = ps.executeQuery();
+			List<UserPostings> ret = toUserPostingsList(rs);
+			return ret;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	private List<UserPostings> toUserPostingsList(ResultSet rs) throws SQLException {
 
 		List<UserPostings> ret = new ArrayList<UserPostings>();
 		try {
@@ -60,7 +95,6 @@ public class UserPostingDao {
 				postings.setCategory(category);
 				postings.setUpdateDate(updateDate);
 
-
 				ret.add(postings);
 			}
 			return ret;
@@ -68,8 +102,4 @@ public class UserPostingDao {
 			close(rs);
 		}
 	}
-
-
-
-
 }

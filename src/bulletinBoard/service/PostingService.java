@@ -59,4 +59,26 @@ public class PostingService {
 	}
 
 
+	public List<UserPostings> validPosting (String startDate , String endDate , String category ) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+
+			UserPostingDao userPostingDao = new UserPostingDao();
+			List<UserPostings> ret  = userPostingDao.getValidPostings(connection, startDate, endDate, category);
+
+			commit(connection);
+
+			return ret;
+		} catch(RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+
 }

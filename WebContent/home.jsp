@@ -38,30 +38,17 @@
 
 
 
- <div class="category-form">
- 	<form action="./home" method="post">
-		<label for="category">カテゴリー</label>
-		<select name="category">
-			<c:forEach items="${ postings }" var="posting"><br />
-				<option value="${ posting.category }" ><c:out value="${ posting.category }" /></option>
-			</c:forEach>
-		</select>
-		<input type="submit" value="絞込み" />
-	</form>
-</div>
+ <div class="category-updateDate">
+ 	<form action="./home" method="get">
+ 	<a>カテゴリーと日付による指定</a><br />
 
+		<label for="category">カテゴリー(10文字以下)</label><br />
+		<input name="category" id="category" maxlength="10" />
+		<br /><br />
 
-<div class="updateDate">
-	<form action="./home" method="post">
-		<label for="date">投稿日時</label>
-		<select name="updateDate">
-			<c:forEach items="${ postings }" var="posting"><br />
-				<option value="${ posting.updateDate }" >
-				<fmt:formatDate value="${ posting.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" />
-				</option>
-			</c:forEach>
-		</select>
-		<input type="submit" value="絞込み" />
+		<label for="date"> 投稿日時 </label><br />
+			<input type="date" name="startDate" /> ～ <input type="date" name="endDate" /><br />
+		<input type="submit" value="検索" />
 	</form>
 </div>
 
