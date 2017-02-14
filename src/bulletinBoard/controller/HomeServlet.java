@@ -27,12 +27,6 @@ public class HomeServlet extends HttpServlet{
 
 		User user = (User) request.getSession().getAttribute("loginUser");
 
-		String category = request.getParameter("category");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-
-		System.out.println(category);
-
 		boolean homePostings;
 		if (user != null) {
 			homePostings = true;
@@ -40,19 +34,43 @@ public class HomeServlet extends HttpServlet{
 			homePostings = false;
 		}
 
+
+		String category = request.getParameter("category");
+		String date1 = request.getParameter("startDate");
+		String date2 = request.getParameter("endDate");
+
 		List<UserPostings> postings = new PostingService().getPostings();
+		/*投稿のupdateの時間をもつリスト*/
+		List<UserPostings> datePostings = new PostingService().datePostings();
+		if (date1.length() == 0 ) {
+			UserPostings startDate = datePostings.get(0);
+		} else {
+			String startDate = date1;
+		}
+
+
+
 		List<UserPostings> validPostings = new PostingService().validPosting
 				(startDate, endDate, category);
 
+
+
+
+
+//		System.out.println(postingDate);
+//		System.out.println(postings.get(2));
+		UserPostings datePosting = datePostings.get(0);
+
 		HttpSession session = request.getSession();
 
-//		if ( startDate == null) {
-//			session.setAttribute("postings", postings);
-//			request.setAttribute("homePosting", homePostings);
-//		} else {
-			session.setAttribute("postings", validPostings);
+		if ( category == null) {
+			session.setAttribute("postings", postings);
+			session.setAttribute("datePostings", datePostings);
 			request.setAttribute("homePosting", homePostings);
-//		}
+		} else {
+//			session.setAttribute("postings", validPostings);
+			request.setAttribute("homePosting", homePostings);
+		}
 
 
 		List<UserComment> comments = new CommentService().getComment();

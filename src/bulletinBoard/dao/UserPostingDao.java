@@ -21,8 +21,7 @@ public class UserPostingDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select");
-			sql.append(
-					" name, postings.title, postings.message, postings.category, postings.update_date, postings.id ");
+			sql.append(" name, postings.title, postings.message, postings.category, postings.update_date, postings.id ");
 			sql.append(" from users left join postings on users.id = postings.user_id ");
 			sql.append(" order by postings.id desc;");
 
@@ -37,6 +36,27 @@ public class UserPostingDao {
 			close(ps);
 		}
 	}
+
+	/*投稿日時の取得のselect文*/
+
+	public List<UserPostings> getDatePosting (Connection connection ) {
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("select update_date from postings order by update_date");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ResultSet rs = ps.executeQuery();
+			List<UserPostings> ret = toDatePostingsList(rs);
+			return ret;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
 
 	/* 日時とカテゴリーの絞り込み */
 	public List<UserPostings> getValidPostings(Connection connection, String startDate, String endDate,
@@ -74,6 +94,9 @@ public class UserPostingDao {
 		}
 	}
 
+
+
+
 	private List<UserPostings> toUserPostingsList(ResultSet rs) throws SQLException {
 
 		List<UserPostings> ret = new ArrayList<UserPostings>();
@@ -96,6 +119,24 @@ public class UserPostingDao {
 				postings.setUpdateDate(updateDate);
 
 				ret.add(postings);
+			}
+			return ret;
+		} finally {
+			close(rs);
+		}
+	}
+
+
+	private List<UserPostings> toDatePostingsList(ResultSet rs) throws SQLException {
+		List<UserPostings> ret = new ArrayList<UserPostings>();
+		try {
+			while (rs.next()) {
+				Timestamp updateDate = rs.getTimestamp("update_date");
+
+				UserPostings datePostings = new UserPostings();
+
+				datePostings.setUpdateDate(updateDate);
+				 ret.add(datePostings);
 			}
 			return ret;
 		} finally {

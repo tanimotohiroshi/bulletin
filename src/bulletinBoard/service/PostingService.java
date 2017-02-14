@@ -36,6 +36,29 @@ public class PostingService {
 		}
 	}
 
+	
+	public List<UserPostings> datePostings() {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+
+			UserPostingDao postingDao = new UserPostingDao();
+			List<UserPostings> ret = postingDao.getDatePosting (connection);
+
+			commit(connection);
+
+			return ret;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
 
 
 

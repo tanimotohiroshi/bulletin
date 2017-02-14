@@ -33,8 +33,11 @@
 	</c:if>
 </div>
 
-<br /><br /><br />
+<br /><br />
 
+
+
+<br />
 
 
 
@@ -48,10 +51,15 @@
 
 		<label for="date"> 投稿日時 </label><br />
 			<input type="date" name="startDate" /> ～ <input type="date" name="endDate" /><br />
+
 		<input type="submit" value="検索" />
 	</form>
 </div>
 
+
+<c:forEach items="${ datePostings }" var="postingdate">
+<fmt:formatDate value="${ postingdate.updateDate }" pattern="yyyy/MM/dd HH:mm:ss" />
+</c:forEach>
 
 
 
