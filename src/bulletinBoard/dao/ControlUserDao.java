@@ -59,7 +59,7 @@ public class ControlUserDao {
 				controlUsers.setLoginId(loginId);
 				controlUsers.setName(name);
 				controlUsers.setIsStopped(isStopped);
-				controlUsers.setDapartmentName(departmentName);
+				controlUsers.setDepartmentName(departmentName);
 				controlUsers.setBranchName(branchName);
 
 

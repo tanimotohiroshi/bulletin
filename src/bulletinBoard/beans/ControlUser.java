@@ -6,7 +6,7 @@ public class ControlUser {
 	private String loginId;
 	private String name;
 	private int isStopped;
-	private String dapartmentName;
+	private String departmentName;
 	private String branchName;
 
 
@@ -36,11 +36,12 @@ public class ControlUser {
 	public void setIsStopped(int isStopped) {
 		this.isStopped = isStopped;
 	}
-	public String getDapartmentName() {
-		return dapartmentName;
+
+	public String getDepartmentName() {
+		return departmentName;
 	}
-	public void setDapartmentName(String dapartmentName) {
-		this.dapartmentName = dapartmentName;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 	public String getBranchName() {
 		return branchName;

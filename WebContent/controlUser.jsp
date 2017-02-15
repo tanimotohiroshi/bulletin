@@ -27,7 +27,9 @@
 
 <h3>ユーザー管理画面</h3>
 
-	<a href="./signUp">ユーザー新規登録</a>
+	<a href="./signUp">ユーザー新規登録</a><br /><br />
+
+	<a href="./home">ホーム画面へ</a>
 <br /><br /><br />
 
 
@@ -37,7 +39,7 @@
 			<c:out value="${ user.loginId }" />
 			<c:out value="${ user.name }" />
 			<c:out value="${ user.branchName }" />
-			<c:out value="${ user.departmentName }" />
+			<c:out value="${ user.departmentName }" /><br /><br />
 			<form action="./editUser" method="get">
 			<input type="submit" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
@@ -60,7 +62,7 @@
 			</form>
 
 
-			<br /><br />
+			<br /><br /><br />
 		</c:forEach>
 	</div>
 
@@ -68,7 +70,7 @@
 
 
 <br /><br />
-	<a href="./home">ホーム画面へ</a>
+
 
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
