@@ -115,10 +115,8 @@ public class SignUpServlet extends HttpServlet {
 		if (!password.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
 			messages.add("パスワードは半角英数字6文字以上255文字以内で");
 		}
-		if (name.length() < 1) {
-			messages.add("名前は1文字以上で");
-		} else if (name.length() > 11) {
-			messages.add("名前は10文字以内で");
+		if (name.length() < 1 || name.length() > 11) {
+			messages.add("名前は1文字以上10文字以内で");
 		}
 
 		if (messages.size() == 0) {

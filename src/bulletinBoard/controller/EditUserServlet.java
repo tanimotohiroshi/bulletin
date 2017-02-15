@@ -96,15 +96,16 @@ public class EditUserServlet extends HttpServlet {
 
 		User user = new User();
 
+		user.setId(id);
+		user.setLoginId(loginId);
+		user.setName(name);
+		user.setBranchId(branchId);
+		user.setDepartmentId(departmentId);
+
 
 
 		if (isValidation(request, messages) == true) {
 
-			user.setId(id);
-			user.setLoginId(loginId);
-			user.setName(name);
-			user.setBranchId(branchId);
-			user.setDepartmentId(departmentId);
 			if (password1.length() == 0 || password2.length() == 0) {
 
 				new UserService().update(user);
@@ -116,8 +117,8 @@ public class EditUserServlet extends HttpServlet {
 
 			response.sendRedirect("./controlUser");
 		} else {
-			request.setAttribute("errorMessages", messages);
-			request.setAttribute("ediUser", user);
+			request.setAttribute("editErrorMessages", messages);
+			request.setAttribute("editUserReading", user);
 			request.getRequestDispatcher("editUser.jsp").forward(request, response);
 		}
 	}
@@ -140,13 +141,11 @@ public class EditUserServlet extends HttpServlet {
 		}
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
-			messages.add("半角英数字6文字以上で");
+			messages.add("半角英数字6文字以上20文字以内で");
 		}
 
-		if (name.length() < 1) {
-			messages.add("1文字以上で");
-		} else if (name.length() > 11) {
-			messages.add("10文字以内で");
+		if (name.length() < 1 || name.length() >11) {
+			messages.add("1文字以上もしくは10文字以内で");
 		}
 
 		if (messages.size() == 0) {
