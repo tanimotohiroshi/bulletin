@@ -13,7 +13,7 @@ create table users
  );
 
 
-alter table users alter is_stopped set default 1;
+alter table users alter is_stopped set default 0;
 
 create table branchs
  (id int primary key auto_increment
@@ -28,13 +28,12 @@ create table departments
 
 
 create table postings
- (
-   id int primary key auto_increment
+ (id int primary key auto_increment
  , user_id int not null
  , title varchar(50) not null
  , message text
  , category varchar(10) not null
- , update_date timestamp not null
+ , insert_date timestamp not null
  );
 
 
@@ -43,7 +42,7 @@ create table comments
  , posting_id int not null
  , user_id int not null
  , message text not null
- , update_date timestamp not null
+ , insert_date timestamp not null
  );
 
 insert into branchs (name)

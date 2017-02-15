@@ -1,6 +1,8 @@
 package bulletinBoard.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,20 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinBoard.beans.User;
 import bulletinBoard.beans.UserComment;
 import bulletinBoard.beans.UserPostings;
+import bulletinBoard.beans.Valid;
 import bulletinBoard.service.CommentService;
 import bulletinBoard.service.PostingService;
 
 @WebServlet(urlPatterns = { "/home" })
 
-public class HomeServlet extends HttpServlet{
+public class HomeServlet extends HttpServlet {
 
 	@Override
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws IOException,ServletException{
+			throws IOException, ServletException {
 
 		User user = (User) request.getSession().getAttribute("loginUser");
 
@@ -34,43 +39,45 @@ public class HomeServlet extends HttpServlet{
 			homePostings = false;
 		}
 
-
 		String category = request.getParameter("category");
-		String date1 = request.getParameter("startDate");
-		String date2 = request.getParameter("endDate");
 
-		List<UserPostings> postings = new PostingService().getPostings();
-		/*投稿のupdateの時間をもつリスト*/
-		List<UserPostings> datePostings = new PostingService().datePostings();
-		if (date1.length() == 0 ) {
-			UserPostings startDate = datePostings.get(0);
-		} else {
-			String startDate = date1;
+		/* 投稿のupdateの時間をもつリスト */
+		UserPostings datePostings = new PostingService().datePostings();
+		String startDate = String.valueOf(datePostings.getInsertDate());
+
+		/*今の日付と時間を文字列で*/
+		Date date = new Date();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String endDate = sdf1.format(date);
+
+		if (! StringUtils.isEmpty(request.getParameter("startDate")) == true){
+			startDate = request.getParameter("startDate") + " 00:00:00";
+		}
+
+		if (! StringUtils.isEmpty(request.getParameter("endDate")) == true) {
+				endDate = request.getParameter("endDate") + " 23:59:59";
 		}
 
 
+		System.out.println(startDate);
+		System.out.println(endDate);
 
-		List<UserPostings> validPostings = new PostingService().validPosting
-				(startDate, endDate, category);
-
-
-
-
-
-//		System.out.println(postingDate);
-//		System.out.println(postings.get(2));
-		UserPostings datePosting = datePostings.get(0);
+		List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);
 
 		HttpSession session = request.getSession();
 
-		if ( category == null) {
-			session.setAttribute("postings", postings);
-			session.setAttribute("datePostings", datePostings);
-			request.setAttribute("homePosting", homePostings);
-		} else {
-//			session.setAttribute("postings", validPostings);
-			request.setAttribute("homePosting", homePostings);
-		}
+
+		Valid valid = new Valid();
+
+		valid.setCategory(category);
+		valid.setStartDate(startDate);
+		valid.setEndDate(endDate);
+
+		/* このifでホームに表示させる投稿の選択 */
+
+		session.setAttribute("postings", validPostings);
+		request.setAttribute("valid", valid);
+		request.setAttribute("homePosting", homePostings);
 
 
 		List<UserComment> comments = new CommentService().getComment();
@@ -79,11 +86,5 @@ public class HomeServlet extends HttpServlet{
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 
 	}
-
-
-
-
-
-
 
 }

@@ -9,7 +9,7 @@ public class UserPostings {
 	private String message;
 	private String name;
 	private String category;
-	private Date updateDate;
+	private Date insertDate;
 
 
 	public int getId() {
@@ -46,11 +46,13 @@ public class UserPostings {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+
+	public Date getInsertDate() {
+		return insertDate;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
 	}
 
 }

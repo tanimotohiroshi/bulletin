@@ -17,7 +17,7 @@ public class CommentDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into comments");
-			sql.append(" (posting_id, user_id, message, update_date )");
+			sql.append(" (posting_id, user_id, message, insert_date )");
 			sql.append(" values ");
 			sql.append(" (?, ?, ?, current_timestamp )" );
 

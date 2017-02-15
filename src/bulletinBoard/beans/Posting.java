@@ -12,9 +12,15 @@ public class Posting implements Serializable {
 	private String title;
 	private String message;
 	private String category;
-	private Date updateDate;
+	private Date insertDate;
 
 
+	public Date getInsertDate() {
+		return insertDate;
+	}
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
 	public int getId() {
 		return id;
 	}
@@ -45,12 +51,7 @@ public class Posting implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

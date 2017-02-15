@@ -6,6 +6,8 @@ public class ControlUser {
 	private String loginId;
 	private String name;
 	private int isStopped;
+	private String dapartmentName;
+	private String branchName;
 
 
 

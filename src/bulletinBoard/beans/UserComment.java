@@ -9,7 +9,7 @@ public class UserComment {
 	private int postingId;
 	private String message;
 	private String name;
-	private Date updateDate;
+	private Date insertDate;
 
 
 
@@ -38,11 +38,11 @@ public class UserComment {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getInsertDate() {
+		return insertDate;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
 	}
 
 

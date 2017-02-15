@@ -36,15 +36,15 @@ public class PostingService {
 		}
 	}
 
-	
-	public List<UserPostings> datePostings() {
+
+	public UserPostings datePostings() {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			UserPostingDao postingDao = new UserPostingDao();
-			List<UserPostings> ret = postingDao.getDatePosting (connection);
+			UserPostings ret = postingDao.getDatePosting (connection);
 
 			commit(connection);
 

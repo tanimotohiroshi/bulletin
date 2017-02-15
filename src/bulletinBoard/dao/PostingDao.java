@@ -18,13 +18,13 @@ public class PostingDao {
 		try{
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into postings");
-			sql.append(" (user_id, title, message, category, update_date)");
+			sql.append(" (user_id, title, message, category, insert_date)");
 			sql.append(" values ");
 			sql.append("(?, ?, ?, ?, current_timestamp )");
 
 			ps = connection.prepareStatement(sql.toString());
 
-		
+
 			ps.setInt(1, posting.getUserId());
 			ps.setString(2, posting.getTitle());
 			ps.setString(3, posting.getMessage());

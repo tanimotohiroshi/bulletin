@@ -35,9 +35,9 @@ public class SignUpServlet extends HttpServlet {
 
 		List<Department> departmentList = new DepartmentService().getDepartment();
 		departmentSession.setAttribute("departmentList", departmentList);
-
-
-
+//
+//
+		request.getRequestDispatcher("signUp.jsp").forward(request, response);
 
 		/*ここから直打ちのバリデーション*/
 		HttpSession session = request.getSession();
@@ -77,27 +77,30 @@ public class SignUpServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
-
+//
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 
 
+		User user = new User();
+		user.setLoginId(request.getParameter("loginId"));
+		user.setPassword(request.getParameter("password"));
+		user.setName(request.getParameter("name"));
+		user.setBranchId(branchId);
+		user.setDepartmentId(departmentId);
+
 
 		if (isValidation(request, messages) == true) {
 
-			User user = new User();
-			user.setLoginId(request.getParameter("loginId"));
-			user.setPassword(request.getParameter("password"));
-			user.setName(request.getParameter("name"));
-			user.setBranchId(branchId);
-			user.setDepartmentId(departmentId);
 
 			new UserService().register(user);
+
 
 			response.sendRedirect("./controlUser");
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("./signUp");
+			request.setAttribute("editUser", user);
+			request.getRequestDispatcher("signUp.jsp").forward(request, response);
 		}
 	}
 
@@ -107,15 +110,15 @@ public class SignUpServlet extends HttpServlet {
 		String name = request.getParameter("name");
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
-			messages.add("半角英数字6文字以上で");
+			messages.add("ログインIDは半角英数字6文字以上20文字以内で");
 		}
 		if (!password.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
-			messages.add("半角英数字6文字以上255文字以内で");
+			messages.add("パスワードは半角英数字6文字以上255文字以内で");
 		}
 		if (name.length() < 1) {
-			messages.add("1文字以上で");
+			messages.add("名前は1文字以上で");
 		} else if (name.length() > 11) {
-			messages.add("10文字以内で");
+			messages.add("名前は10文字以内で");
 		}
 
 		if (messages.size() == 0) {

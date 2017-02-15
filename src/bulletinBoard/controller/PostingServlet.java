@@ -36,15 +36,15 @@ public class PostingServlet extends HttpServlet {
 
 		List<String> messages= new ArrayList<String>();
 
+		User user = (User) session.getAttribute("loginUser");
+
+		Posting posting = new Posting();
+		posting.setUserId(user.getId());
+		posting.setTitle( request.getParameter("title"));
+		posting.setMessage( request.getParameter("message"));
+		posting.setCategory( request.getParameter("category"));
+
 		if (isValid(request, messages) == true) {
-
-			User user = (User) session.getAttribute("loginUser");
-
-			Posting posting = new Posting();
-			posting.setUserId(user.getId());
-			posting.setTitle( request.getParameter("title"));
-			posting.setMessage( request.getParameter("message"));
-			posting.setCategory( request.getParameter("category"));
 
 			new PostingService().register(posting);
 
@@ -52,6 +52,7 @@ public class PostingServlet extends HttpServlet {
 
 		} else {
 			session.setAttribute("errorMessages", messages);
+			request.setAttribute("posting", posting);
 			response.sendRedirect("./posting");
 		}
 	}

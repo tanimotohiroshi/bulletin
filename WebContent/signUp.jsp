@@ -27,13 +27,14 @@
 	<form action="./signUp" method="post">
 
 		<label for="loginId">ログインID</label>
-		<input name="loginId" id="loginId" maxlength="20" /><br />
+		<input name="loginId" id="loginId" maxlength="20"
+		value="${ editUser.loginId }" /><br />
 
 		<label for="password">パスワード</label>
-		<input name="password" id="password" type="password" maxlength="255" /><br />
+		<input name="password" id="password" type="password" maxlength="255"  /><br />
 
 		<label for="name">名前</label>
-		<input name="name" id="name" maxlength="10"/><br />
+		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br />
 
 
 		<label for="branchId">支店名</label>

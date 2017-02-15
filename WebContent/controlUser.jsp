@@ -35,6 +35,7 @@
 	<div class="usersList">
 		<c:forEach items="${ usersList }" var="user">
 			<c:out value="${ user.loginId }" />   <c:out value="${ user.name }" />
+	<%--		<c:out value="${ user.branchName }" /> <c:out value="${ user.departmentName }" />  --%>
 			<form action="./editUser" method="get">
 			<input type="submit" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
