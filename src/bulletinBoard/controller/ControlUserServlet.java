@@ -1,7 +1,6 @@
 package bulletinBoard.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,39 +24,13 @@ public class ControlUserServlet extends HttpServlet {
 			throws IOException, ServletException {
 
 		/* ユーザーの一覧表示 */
+		HttpSession session = request.getSession();
 		List<ControlUser> controlUser = new ControlUserService().getControlUser();
-		HttpSession session = request.getSession();
 
-		session.setAttribute("usersList", controlUser);
+		System.out.println(controlUser.get(0));
 
-		/* ここから総務以外を絞る部分 */
-		List<String> messages = new ArrayList<String>();
-
-		if (isValid(request, messages) == true) {
-
-			request.getRequestDispatcher("controlUser.jsp").forward(request, response);
-
-		} else {
-			session.setAttribute("controlErrorMessages", messages);
-			response.sendRedirect("./home");
-		}
-	}
-
-	private boolean isValid(HttpServletRequest request, List<String> messages) {
-
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-
-		if (user.getDepartmentId() != 1) {
-			messages.add("管理画面には入れません");
-		}
-
-		if (messages.size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
-
+		session.setAttribute("userList", controlUser);
+		request.getRequestDispatcher("controlUser.jsp").forward(request, response);
 	}
 
 	@Override

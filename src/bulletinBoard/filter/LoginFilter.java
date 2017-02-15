@@ -21,7 +21,7 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
 		try {
 			/*targetにrequestのURIがあるからログイン画面のURIとまっちするか*/
-			 String target = ((HttpServletRequest)request).getRequestURI();
+			String target = ((HttpServletRequest)request).getRequestURI();
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			Object loginCheck = session.getAttribute("loginUser");
 

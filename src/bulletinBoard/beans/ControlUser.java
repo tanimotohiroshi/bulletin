@@ -36,6 +36,18 @@ public class ControlUser {
 	public void setIsStopped(int isStopped) {
 		this.isStopped = isStopped;
 	}
+	public String getDapartmentName() {
+		return dapartmentName;
+	}
+	public void setDapartmentName(String dapartmentName) {
+		this.dapartmentName = dapartmentName;
+	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
 
 
 

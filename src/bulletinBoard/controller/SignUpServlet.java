@@ -35,37 +35,9 @@ public class SignUpServlet extends HttpServlet {
 
 		List<Department> departmentList = new DepartmentService().getDepartment();
 		departmentSession.setAttribute("departmentList", departmentList);
-//
-//
+
+
 		request.getRequestDispatcher("signUp.jsp").forward(request, response);
-
-		/*ここから直打ちのバリデーション*/
-		HttpSession session = request.getSession();
-		List<String> messages = new ArrayList<String>();
-
-		if (isValid(request, messages) == true) {
-
-			request.getRequestDispatcher("signUp.jsp").forward(request, response);
-		} else {
-			session.setAttribute("controlErrorMessages", messages);
-			response.sendRedirect("./home");
-		}
-	}
-
-	private boolean isValid(HttpServletRequest request, List<String> messages) {
-
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-
-		if (user.getDepartmentId() != 1) {
-			messages.add("管理画面には入れません");
-		}
-
-		if (messages.size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
 
 	}
 
@@ -77,7 +49,7 @@ public class SignUpServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
-//
+
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 

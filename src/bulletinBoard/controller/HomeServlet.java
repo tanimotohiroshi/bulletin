@@ -59,8 +59,6 @@ public class HomeServlet extends HttpServlet {
 		}
 
 
-		System.out.println(startDate);
-		System.out.println(endDate);
 
 		List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);
 

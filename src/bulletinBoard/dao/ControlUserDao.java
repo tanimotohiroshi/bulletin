@@ -21,9 +21,10 @@ public class ControlUserDao {
 
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append(" select ");
-			sql.append(" id, login_id, name, is_stopped");
-			sql.append(" from users ");
+			sql.append(" select users.id, users.login_id, users.name, users.is_stopped");
+			sql.append(", departments.name as departmentName, branchs.name as branchName ");
+			sql.append("  from users left join branchs on users.branch_id = branchs.id");
+			sql.append("  left join departments on users.department_id = departments.id; ");
 
 			ps = connection.prepareStatement(sql.toString());
 
@@ -49,6 +50,8 @@ public class ControlUserDao {
 				String loginId = rs.getString("login_id");
 				String name = rs.getString("name");
 				int isStopped = rs.getInt("is_stopped");
+				String departmentName = rs.getString("departmentName");
+				String branchName = rs.getString("branchName");
 
 				ControlUser controlUsers = new ControlUser();
 
@@ -56,6 +59,9 @@ public class ControlUserDao {
 				controlUsers.setLoginId(loginId);
 				controlUsers.setName(name);
 				controlUsers.setIsStopped(isStopped);
+				controlUsers.setDapartmentName(departmentName);
+				controlUsers.setBranchName(branchName);
+
 
 
 				ret.add(controlUsers);

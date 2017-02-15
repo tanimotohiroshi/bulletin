@@ -42,42 +42,11 @@ public class EditUserServlet extends HttpServlet {
 
 		request.setAttribute("editUserReading", user);
 		request.getRequestDispatcher("/editUser.jsp").forward(request, response);
-
-		/* ここからURL直打ちのバリデーション */
-		HttpSession sessionValid = request.getSession();
-		List<String> messages = new ArrayList<String>();
-
-		if (isValid(request, messages) == true) {
-
-			request.getRequestDispatcher("/editUser.jsp").forward(request, response);
-		} else {
-			sessionValid.setAttribute("controlErrorMessages", messages);
-			response.sendRedirect("./home");
-		}
-	}
-
-	private boolean isValid(HttpServletRequest request, List<String> messages) {
-
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-
-		String departmentId = String.valueOf(user.getDepartmentId());
-
-		if (departmentId == null) {
-			messages.add("ログインしてください");
-		}
-
-		if (user.getDepartmentId() != 1) {
-			messages.add("管理画面には入れません");
-		}
-
-		if (messages.size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		
 
 	}
+
+
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -130,22 +99,25 @@ public class EditUserServlet extends HttpServlet {
 		String password1 = request.getParameter("password1");// 入力用パスワード
 		String password2 = request.getParameter("password2");// 確認用パスワード
 
+
+		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
+			messages.add("ログインIDは半角英数字6文字以上20文字以内で");
+		}
+
+
 		if (!password1.equals(password2)) {
 			messages.add("パスワードが一致しません");
 		}
 
 		if (password1.length() != 0 || password2.length() != 0) {
 			if (!password1.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
-				messages.add("半角英数字6文字以上255文字以内で");
+				messages.add("パスワードは半角英数字6文字以上255文字以内で");
 			}
 		}
 
-		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
-			messages.add("半角英数字6文字以上20文字以内で");
-		}
 
 		if (name.length() < 1 || name.length() >11) {
-			messages.add("1文字以上もしくは10文字以内で");
+			messages.add("名前は1文字以上もしくは10文字以内で");
 		}
 
 		if (messages.size() == 0) {
