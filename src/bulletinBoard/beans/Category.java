@@ -1,6 +1,14 @@
 package bulletinBoard.beans;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable{
+	private static final long serialversionUID = 1L;
+
+
+	public static long getSerialversionuid() {
+		return serialversionUID;
+	}
 
 	private String category;
 

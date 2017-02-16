@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import bulletinBoard.beans.Category;
 import bulletinBoard.beans.User;
 import bulletinBoard.beans.UserComment;
 import bulletinBoard.beans.UserPostings;
 import bulletinBoard.beans.Valid;
+import bulletinBoard.service.CategoryService;
 import bulletinBoard.service.CommentService;
 import bulletinBoard.service.PostingService;
 
@@ -30,6 +32,11 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+
+
+		/*カテゴリー表示*/
+		List<Category> categoryList = new CategoryService().getCategory();
+		request.setAttribute("categoryList", categoryList);
 
 
 		if ( StringUtils.isEmpty(request.getParameter("deletePosting")) == false) {
@@ -52,11 +59,13 @@ public class HomeServlet extends HttpServlet {
 		}
 
 		/*入力値の保持*/
-		String category = request.getParameter("category");
+		String category = request.getParameter("getCategory");
 		String date1 = request.getParameter("startDate");
 		String date2 = request.getParameter("endDate");
 
-		request.setAttribute("category", category);
+
+
+		request.setAttribute("reCategory", category);
 		request.setAttribute("date1", date1);
 		request.setAttribute("date2", date2);
 

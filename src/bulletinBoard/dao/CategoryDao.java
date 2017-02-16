@@ -27,7 +27,7 @@ public class CategoryDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select distinct category from postings");
 
-			
+
 			ps = connection.prepareStatement(sql.toString());
 
 			ResultSet rs = ps.executeQuery();
@@ -49,10 +49,10 @@ public class CategoryDao {
 				String category = rs.getString("category");
 
 				Category categoryName = new Category();
-				
-				category.setCategory(category);
 
-				ret.add(category);
+				categoryName.setCategory(category);
+
+				ret.add(categoryName);
 			}
 			return ret;
 		} finally {

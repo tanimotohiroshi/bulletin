@@ -53,13 +53,16 @@
 
  <div class="category-updateDate">
  	<form action="./home" method="get">
- 	<a>カテゴリーと日付による指定</a><br />
+ 	<a>カテゴリーと日付による指定</a><br /><br />
 
- 		<label for="category">カテゴリー</label><br />
-		<select name="category"  >
+ 		<label for="category">カテゴリー(未選択の場合はすべてのカテゴリーを表示)</label><br />
+		<select name="getCategory"  >
+		<c:if test="${ reCategory != null }" >
+		<option value="${ reCategory }" > <c:out value="${ reCategory } " /></option>
+		</c:if>
 		<option value=""  >選択してください</option>
-			<c:forEach items="${ postings }" var="posting"><br />
-				<option value="${ posting.category }"  ><c:out value="${ posting.category }" /></option>
+			<c:forEach items="${ categoryList }" var="category"><br />
+				<option value="${ category.category }"  ><c:out value="${ category.category }" /></option>
 			</c:forEach>
 		</select>
 
