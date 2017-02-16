@@ -27,14 +27,15 @@
 
 
 	<label for="title" >タイトル(50文字以下)</label><br />
-	<input name="title" id="title" maxlength="50" value="${ posting.title }" /><br /><br />
+	<input name="title" id="title" value="${ posting.title }"  maxlength="50" /><br /><br />
+
 
 	<label for="message">投稿内容(1000文字以下)</label><br />
-	<textarea name="message" rows="20" cols="50" class="tweet-box" value="${ posting.message }" maxlength="1000">
-	</textarea><br /><br />
+	<textarea name="message"  rows="20" cols="50" value="${ posting.message }" class="tweet-box"  maxlength="1000"></textarea><br /><br />
 
 	<label for="category">カテゴリー(10文字以下)</label><br />
-	<input name="category" id="category" maxlength="10" value="${ posting.category }" /><br /><br />
+	<input name="category" id="category" value="${ posting.category }"  maxlength="10" /><br /><br />
+	<c:remove var="posting" scope="session"/>
 
 
 	<input type="submit" value="コメントする"><br />

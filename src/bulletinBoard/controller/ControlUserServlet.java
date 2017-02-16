@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinBoard.beans.ControlUser;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.ControlUserService;
@@ -27,7 +29,6 @@ public class ControlUserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<ControlUser> controlUser = new ControlUserService().getControlUser();
 
-		System.out.println(controlUser.get(0));
 
 		session.setAttribute("userList", controlUser);
 		request.getRequestDispatcher("controlUser.jsp").forward(request, response);
@@ -37,8 +38,19 @@ public class ControlUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		/* ユーザーの停止復活処理 */
+		/*ユーザーの削除*/
+
 		int id = Integer.parseInt(request.getParameter("id"));
+
+		if ( StringUtils.isEmpty(request.getParameter("delete")) == false) {
+
+			new UserService().deleteUser(id);
+
+		}
+
+
+
+		/* ユーザーの停止復活処理 */
 
 		User userStopId = new User();
 
@@ -46,13 +58,17 @@ public class ControlUserServlet extends HttpServlet {
 			int permitId = Integer.parseInt(request.getParameter("stopId"));
 			userStopId.setId(id);
 			userStopId.setIsStopped(permitId);
-		} else {
+			new UserService().stoppedId(userStopId);
+		}
+
+		if(request.getParameter("permitId") != null) {
 			int stopId = Integer.parseInt(request.getParameter("permitId"));
 			userStopId.setId(id);
 			userStopId.setIsStopped(stopId);
+			new UserService().stoppedId(userStopId);
 		}
 
-		new UserService().stoppedId(userStopId);
+
 
 		response.sendRedirect("./controlUser");
 

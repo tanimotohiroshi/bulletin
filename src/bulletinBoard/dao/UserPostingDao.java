@@ -21,7 +21,9 @@ public class UserPostingDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select");
-			sql.append(" name, postings.title, postings.message, postings.category, postings.insert_date, postings.id ");
+			sql.append(" name, users.id as userId,  users.branch_id as branchId,"
+					+ " postings.title, postings.message, postings.category"
+					+ ", postings.insert_date, postings.id ");
 			sql.append(" from users left join postings on users.id = postings.user_id ");
 			sql.append(" order by postings.insert_date desc ;");
 
@@ -48,7 +50,8 @@ public class UserPostingDao {
 
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("select name, postings.title, postings.message, postings.category, postings.insert_date");
+			sql.append("select name, users.id as userId, users.branch_id as branchId , "
+					+ " postings.title, postings.message, postings.category, postings.insert_date");
 			sql.append(" , postings.id from users left join postings on users.id = postings.user_id ");
 			sql.append(" where insert_date between ? and ? ");
 			if (category != null ){
@@ -88,6 +91,8 @@ public class UserPostingDao {
 		try {
 			while (rs.next()) {
 				int id = rs.getInt("id");
+				int userId = rs.getInt("userId");
+				int branchId = rs.getInt("branchId");
 				String title = rs.getString("title");
 				String message = rs.getString("message");
 				String name = rs.getString("name");
@@ -97,6 +102,8 @@ public class UserPostingDao {
 				UserPostings postings = new UserPostings();
 
 				postings.setId(id);
+				postings.setUserId(userId);
+				postings.setBranchId(branchId);
 				postings.setTitle(title);
 				postings.setMessage(message);
 				postings.setName(name);
@@ -119,7 +126,8 @@ public class UserPostingDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select");
-			sql.append(" name, postings.title, postings.message, postings.category, postings.insert_date, postings.id ");
+			sql.append(" name, users.id as userId, postings.title,  users.branch_id as branchId,"
+					+ " postings.message, postings.category, postings.insert_date, postings.id ");
 			sql.append(" from users left join postings on users.id = postings.user_id ");
 			sql.append(" order by insert_date;");
 

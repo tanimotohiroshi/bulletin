@@ -5,6 +5,8 @@ import java.util.Date;
 public class UserPostings {
 
 	private int id;
+	private int userId;
+	private int branchId;
 	private String title;
 	private String message;
 	private String name;
@@ -18,6 +20,24 @@ public class UserPostings {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getBranchId() {
+		return branchId;
+	}
+
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
 
 	public String getTitle() {

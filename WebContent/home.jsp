@@ -26,10 +26,11 @@
 
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
-		<a href="controlUser">ユーザー管理画面へ</a> <br />
-		<a href="posting">新規投稿</a><br />
-		<a href="home">ホーム</a><br />
-		<a href="logout">ログアウト</a>
+		<a href="home">ホーム</a>			<a href="logout">ログアウト</a>
+		<c:if test="${ loginUser.id ==1 }">
+		<a href="controlUser">ユーザー管理画面へ</a>
+		</c:if> <br /><br />
+		<a href="posting">新規投稿</a><br /><br />
 	</c:if>
 </div>
 
@@ -54,14 +55,19 @@
  	<form action="./home" method="get">
  	<a>カテゴリーと日付による指定</a><br />
 
-		<label for="category">カテゴリー(10文字以下)</label><br />
-		<input name="category" id="category" maxlength="10"
-		 value="${ valid.category }" />
-		<br /><br />
+ 		<label for="category">カテゴリー</label><br />
+		<select name="category"  >
+		<option value=""  >選択してください</option>
+			<c:forEach items="${ postings }" var="posting"><br />
+				<option value="${ posting.category }"  ><c:out value="${ posting.category }" /></option>
+			</c:forEach>
+		</select>
 
+
+		<br /><br />
 		<label for="date"> 投稿日時 </label><br />
-			<input type="date" name="startDate" value="${ valid.startDate }" />
-			 ～ <input type="date" name="endDate" value="${ valid.endDate }"/><br />
+			<input type="date" name="startDate" value="${ date1 }" />
+			 ～ <input type="date" name="endDate" value="${ date2 }"/><br />
 		<input type="submit" value="検索" />
 	</form>
 </div>
@@ -72,12 +78,33 @@
 	<div class="posting-form" >
 
 		<div class="postings">
+
 			<c:forEach items="${ postings }" var="posting">
 				<c:out value="${ posting.title }" /><br />
-				<c:out value="${ posting.message }" /><br />
+				<pre><c:out value="${ posting.message }" /></pre><br />
 				<c:out value="${ posting.name }" /><br />
 				<c:out value="${ posting.category }" /><br />
-				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
+				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
+
+
+
+					<form action="./home" method="get">
+
+					<input type="hidden" name="deletePosting" value="${ posting.id }" />
+
+					<c:choose>
+						<c:when test="${ loginUser.departmentId == 2}" >
+						<input type="submit" value="投稿を削除する" /></c:when>
+						<c:when test="${ loginUser.id == posting.userId }" >
+						<input type="submit" value="投稿を削除する" /></c:when>
+						<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == posting.branchId }" >
+						<input type="submit" value="投稿を削除する" /></c:when>
+					</c:choose>
+
+					</form>
+
+				<br /><br />
+
 
 	 			<div class="comment-form">
 
@@ -85,8 +112,23 @@
 
 				<c:if test="${ posting.id == comment.postingId }" >
 					<c:out value="${ comment.name }" />
-					<c:out value="${ comment.message }" />
-					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
+					<pre><c:out value="${ comment.message }" /></pre>
+					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
+
+						<form action="./home" method="get">
+						<input type="hidden" name="deleteComment" value="${ comment.id }" />
+
+						<c:choose>
+							<c:when test="${ loginUser.departmentId == 2}" >
+							<input type="submit" value="コメントを削除する" /></c:when>
+							<c:when test="${ loginUser.id == posting.userId }" >
+							<input type="submit" value="コメントを削除する" /></c:when>
+							<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == comment.branchId }" >
+							<input type="submit" value="コメントを削除する" /></c:when>
+						</c:choose>
+
+						</form>
+
 				</c:if>
 				</c:forEach>
 				</div>
@@ -96,7 +138,9 @@
 					<input type="hidden" name="postingId" value="${ posting.id }" >
 					<input type="submit" value="コメントする">
 				</form>
+				<br />
 			</c:forEach>
+
 		</div>
 	</div>
 

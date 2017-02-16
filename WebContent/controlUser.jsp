@@ -32,7 +32,11 @@
 	<a href="./home">ホーム画面へ</a>
 <br /><br /><br />
 
+				<font color="red">
+				<c:out value="${ urlErrorMessage }" />
+				</font>
 
+<br /><br />
 
 	<div class="usersList">
 		<c:forEach items="${ userList }" var="user">
@@ -45,6 +49,7 @@
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
 
+			<br>
 
 			<form action="./controlUser" method="post" >
 
@@ -59,8 +64,15 @@
 			<input type="hidden" name="id" value="${ user.id }" >
 			<input type="submit" value="停止" onClick="return disp();" />
 			</c:if>
+
 			</form>
 
+			<form action="./controlUser" method="post" >
+			<input type="hidden" name="id" value="${ user.id }" />
+			<input type="hidden" name="delete" value="delete" />
+			<input type="submit" value="ユーザー削除" onClick="return disp();" />
+
+			</form>
 
 			<br /><br /><br />
 		</c:forEach>

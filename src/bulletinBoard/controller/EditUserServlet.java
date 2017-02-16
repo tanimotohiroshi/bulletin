@@ -36,13 +36,18 @@ public class EditUserServlet extends HttpServlet {
 		List<Department> departmentList = new DepartmentService().getDepartment();
 		departmentSession.setAttribute("departmentList", departmentList);
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		if ( request.getParameter("id") != null) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			User user = new UserService().getUserId(id);
 
-		User user = new UserService().getUserId(id);
-
-		request.setAttribute("editUserReading", user);
-		request.getRequestDispatcher("/editUser.jsp").forward(request, response);
-		
+			request.setAttribute("editUserReading", user);
+			request.getRequestDispatcher("editUser.jsp").forward(request, response);
+		} else {
+			List<String> messages = new ArrayList<String>();
+			messages.add("URLを確認してください");
+			request.setAttribute("urlErrorMessage", messages);
+			request.getRequestDispatcher("controlUser.jsp").forward(request, response);
+		}
 
 	}
 

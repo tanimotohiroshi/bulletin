@@ -29,8 +29,7 @@ public class PostingServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request
-			, HttpServletResponse response) throws
-	IOException,ServerException{
+			, HttpServletResponse response) throws IOException,ServerException{
 
 		HttpSession session = request.getSession();
 
@@ -52,7 +51,7 @@ public class PostingServlet extends HttpServlet {
 
 		} else {
 			session.setAttribute("errorMessages", messages);
-			request.setAttribute("posting", posting);
+			session.setAttribute("posting", posting);
 			response.sendRedirect("./posting");
 		}
 	}

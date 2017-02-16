@@ -22,9 +22,9 @@ public class UserCommentDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select");
-			sql.append(" users.name, comments.message, comments.insert_date, comments.posting_id ");
-			sql.append(" from comments left join users on ");
-			sql.append(" users.id = comments.user_id ");
+			sql.append(" users.name, users.branch_id as branchId, users.id as userId, comments.id, comments.message"
+					+ ", comments.insert_date, comments.posting_id ");
+			sql.append(" from users left join comments on users.id = comments.user_id");
 
 			ps = connection.prepareStatement(sql.toString());
 
@@ -45,14 +45,20 @@ public class UserCommentDao {
 		List<UserComment> ret = new ArrayList<UserComment>();
 		try {
 			while (rs.next()) {
+				int id = rs.getInt("id");
+				int userId = rs.getInt("userId");
 				int postingId = rs.getInt("posting_id");
+				int branchId = rs.getInt("branchId");
 				String message = rs.getString("message");
 				String name = rs.getString("name");
 				Timestamp insertDate = rs.getTimestamp("insert_date");
 
 				UserComment comment = new UserComment();
 
+				comment.setId(id);
+				comment.setUserId(userId);
 				comment.setPostingId(postingId);
+				comment.setBranchId(branchId);
 				comment.setMessage(message);
 				comment.setName(name);
 				comment.setInsertDate(insertDate);

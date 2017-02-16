@@ -42,8 +42,7 @@ public class CommentServlet extends HttpServlet {
 
 			User user = (User) session.getAttribute("loginUser");
 
-			System.out.println(request.getParameter("postingId"));
-			System.out.println(request.getParameter("comment"));
+
 
 			int postingId = Integer.parseInt(request.getParameter("postingId"));
 

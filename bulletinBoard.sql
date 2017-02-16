@@ -46,12 +46,11 @@ create table comments
  );
 
 insert into branchs (name)
- values ('北海道'), ('東京'), ('名古屋'), ('大阪'), ('福岡' );
+ values ('本社'), ('支店A'), ('支店B'), ('支店C');
 
 insert into departments ( name )
  values ('総務人事担当者'), ('情報管理担当者')
- , ('支店長A'), ('支店長B'), ('支店長C')
- , ('社員A'), ('社員B'), ('社員C');
+ , ('店長'), ('社員');
 
 
 

@@ -1,6 +1,7 @@
 package bulletinBoard.controller;
 
 import java.io.IOException;
+import java.rmi.ServerException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,17 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+
+		if ( StringUtils.isEmpty(request.getParameter("deletePosting")) == false) {
+			int deletePostingId = Integer.parseInt(request.getParameter("deletePosting"));
+			new PostingService().deletePosting(deletePostingId);
+		}
+
+		if ( StringUtils.isEmpty(request.getParameter("deleteComment")) == false) {
+			int deleteCommentId = Integer.parseInt(request.getParameter("deleteComment"));
+			new CommentService().deleteComment(deleteCommentId);
+		}
+
 		User user = (User) request.getSession().getAttribute("loginUser");
 
 		boolean homePostings;
@@ -39,7 +51,16 @@ public class HomeServlet extends HttpServlet {
 			homePostings = false;
 		}
 
+		/*入力値の保持*/
 		String category = request.getParameter("category");
+		String date1 = request.getParameter("startDate");
+		String date2 = request.getParameter("endDate");
+
+		request.setAttribute("category", category);
+		request.setAttribute("date1", date1);
+		request.setAttribute("date2", date2);
+
+
 
 		/* 投稿のupdateの時間をもつリスト */
 		UserPostings datePostings = new PostingService().datePostings();
@@ -71,10 +92,8 @@ public class HomeServlet extends HttpServlet {
 		valid.setStartDate(startDate);
 		valid.setEndDate(endDate);
 
-		/* このifでホームに表示させる投稿の選択 */
 
 		session.setAttribute("postings", validPostings);
-		request.setAttribute("valid", valid);
 		request.setAttribute("homePosting", homePostings);
 
 
@@ -85,4 +104,10 @@ public class HomeServlet extends HttpServlet {
 
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException,ServerException{
+
+
+	}
 }

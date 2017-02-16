@@ -41,5 +41,27 @@ public class PostingDao {
 
 	}
 
+	/*投稿の削除*/
 
+	public void delete ( Connection connection, int id) {
+		PreparedStatement ps = null;
+
+		try{
+			StringBuilder sql = new StringBuilder();
+			sql.append("delete from postings  where id = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+	
+	
 }

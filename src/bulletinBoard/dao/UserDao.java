@@ -200,6 +200,8 @@ public class UserDao {
 		}
 	}
 
+
+	/*ユーザーの停止、復活*/
 	public void stopIdUpdate(Connection connection, User userStopId) {
 
 		PreparedStatement ps = null;
@@ -226,6 +228,29 @@ public class UserDao {
 			close(ps);
 		}
 	}
+
+	/*ユーザーの削除の処理*/
+
+	public void deleteUser(Connection connection, int id ) {
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("delete from users where id = ?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+
+		} catch ( SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
 
 
 }

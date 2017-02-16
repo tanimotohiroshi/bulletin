@@ -6,7 +6,9 @@ public class UserComment {
 
 
 	private int id;
+	private int userId;
 	private int postingId;
+	private int branchId;
 	private String message;
 	private String name;
 	private Date insertDate;
@@ -19,7 +21,12 @@ public class UserComment {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getMessage() {
 		return message;
 	}
@@ -28,6 +35,15 @@ public class UserComment {
 	}
 	public void setPostingId(int postingId) {
 		this.postingId = postingId;
+	}
+
+
+
+	public int getBranchId() {
+		return branchId;
+	}
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
 	public void setMessage(String message) {
 		this.message = message;
