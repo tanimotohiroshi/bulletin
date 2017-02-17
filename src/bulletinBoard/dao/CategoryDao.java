@@ -25,7 +25,8 @@ public class CategoryDao {
 			connection = getConnection();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select distinct category from postings");
+			sql.append("select distinct category from postings"
+					+ " inner join users on postings.user_id = users.id");
 
 
 			ps = connection.prepareStatement(sql.toString());

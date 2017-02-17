@@ -19,7 +19,6 @@ import bulletinBoard.beans.Category;
 import bulletinBoard.beans.User;
 import bulletinBoard.beans.UserComment;
 import bulletinBoard.beans.UserPostings;
-import bulletinBoard.beans.Valid;
 import bulletinBoard.service.CategoryService;
 import bulletinBoard.service.CommentService;
 import bulletinBoard.service.PostingService;
@@ -94,12 +93,12 @@ public class HomeServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-
-		Valid valid = new Valid();
-
-		valid.setCategory(category);
-		valid.setStartDate(startDate);
-		valid.setEndDate(endDate);
+//
+//		Valid valid = new Valid();
+//
+//		valid.setCategory(category);
+//		valid.setStartDate(startDate);
+//		valid.setEndDate(endDate);
 
 
 		session.setAttribute("postings", validPostings);

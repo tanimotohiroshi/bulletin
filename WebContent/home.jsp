@@ -27,7 +27,7 @@
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
 		<a href="home">ホーム</a>			<a href="logout">ログアウト</a>
-		<c:if test="${ loginUser.id ==1 }">
+		<c:if test="${ loginUser.departmentId == 1 }">
 		<a href="controlUser">ユーザー管理画面へ</a>
 		</c:if> <br /><br />
 		<a href="posting">新規投稿</a><br /><br />
@@ -58,7 +58,7 @@
  		<label for="category">カテゴリー(未選択の場合はすべてのカテゴリーを表示)</label><br />
 		<select name="getCategory"  >
 		<c:if test="${ reCategory != null }" >
-		<option value="${ reCategory }" > <c:out value="${ reCategory } " /></option>
+		<option value="${ reCategory }" > <c:out value="${ reCategory }(選択中のカテゴリー) " /></option>
 		</c:if>
 		<option value=""  >選択してください</option>
 			<c:forEach items="${ categoryList }" var="category"><br />

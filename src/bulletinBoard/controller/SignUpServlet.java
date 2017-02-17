@@ -56,7 +56,6 @@ public class SignUpServlet extends HttpServlet {
 
 		User user = new User();
 		user.setLoginId(request.getParameter("loginId"));
-		user.setPassword(request.getParameter("password"));
 		user.setName(request.getParameter("name"));
 		user.setBranchId(branchId);
 		user.setDepartmentId(departmentId);
@@ -64,6 +63,7 @@ public class SignUpServlet extends HttpServlet {
 
 		if (isValidation(request, messages) == true) {
 
+			user.setPassword(request.getParameter("password2"));
 
 			new UserService().register(user);
 
@@ -78,15 +78,23 @@ public class SignUpServlet extends HttpServlet {
 
 	private boolean isValidation(HttpServletRequest request, List<String> messages) {
 		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
+		String password1 = request.getParameter("password1");
+		String password2 = request.getParameter("password2");
 		String name = request.getParameter("name");
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
 			messages.add("ログインIDは半角英数字6文字以上20文字以内で");
 		}
-		if (!password.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
+
+		if (!password1.equals(password2)) {
+			messages.add("パスワードが一致しません");
+		}
+
+		if (!password1.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
 			messages.add("パスワードは半角英数字6文字以上255文字以内で");
 		}
+
+
 		if (name.length() < 1 || name.length() > 11) {
 			messages.add("名前は1文字以上10文字以内で");
 		}

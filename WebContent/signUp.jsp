@@ -31,7 +31,11 @@
 		value="${ editUser.loginId }" /><br />
 
 		<label for="password">パスワード</label>
-		<input name="password" id="password" type="password" maxlength="255"  /><br />
+		<input name="password1" id="password" type="password" maxlength="255"  /><br />
+
+		<label for="password">パスワード(確認用)</label>
+		<input name="password2" id="password" type="password" maxlength="255"  /><br />
+
 
 		<label for="name">名前</label>
 		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br />
