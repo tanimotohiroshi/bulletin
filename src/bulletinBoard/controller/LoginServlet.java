@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.LoginService;
 
-@WebServlet(urlPatterns = { "/index.jsp"} )
+@WebServlet(urlPatterns = { "/login"} )
 
 public class LoginServlet extends HttpServlet {
 
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			} else {
 				session.setAttribute("loginUser", user);
-				response.sendRedirect("./home");
+				response.sendRedirect("./");
 			}
 		} else {
 			messages.add("ログインに失敗しました");

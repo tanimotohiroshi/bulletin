@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
 			Object loginCheck = session.getAttribute("loginUser");
 
 			if (loginCheck == null ){
-				if ( target.matches("\\/[a-zA-Z]{13}\\/")) {
+				if ( target.equals("/bulletinBoard/login")) {
 					chain.doFilter(request, response);
 				} else {
 					((HttpServletResponse) response).sendRedirect("./");

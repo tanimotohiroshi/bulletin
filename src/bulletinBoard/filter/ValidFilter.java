@@ -35,7 +35,7 @@ public class ValidFilter implements Filter {
 			} else {
 				messages.add("管理画面には入れません");
 				session.setAttribute("controlErrorMessages", messages);
-				((HttpServletResponse) response).sendRedirect("./home");
+				((HttpServletResponse) response).sendRedirect("./");
 				return;
 			}
 		} catch (ServletException se) {

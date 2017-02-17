@@ -53,11 +53,11 @@ public class CommentServlet extends HttpServlet {
 
 			new CommentService().register(comment);
 
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 
 		} else {
 			session.setAttribute("errorMessages", messages);
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 		}
 	}
 

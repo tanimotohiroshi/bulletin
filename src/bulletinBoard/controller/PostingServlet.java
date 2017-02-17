@@ -47,7 +47,7 @@ public class PostingServlet extends HttpServlet {
 
 			new PostingService().register(posting);
 
-			response.sendRedirect("./home");
+			response.sendRedirect("./");
 
 		} else {
 			session.setAttribute("errorMessages", messages);

@@ -21,7 +21,7 @@
 	</c:if>
 	</font>
 
-<a href="./home">ホームへ戻る</a>
+<a href="./">ホームへ戻る</a>
 
 <br /><br />
 

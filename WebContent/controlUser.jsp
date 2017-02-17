@@ -29,7 +29,7 @@
 
 	<a href="./signUp">ユーザー新規登録</a><br /><br />
 
-	<a href="./home">ホーム画面へ</a>
+	<a href="./">ホーム画面へ</a>
 <br /><br /><br />
 
 				<font color="red">

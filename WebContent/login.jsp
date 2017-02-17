@@ -25,7 +25,7 @@
 
 
 
-<form action="./" method="post">
+<form action="./login" method="post">
 
 	<label for="loginId">ログインIDを入力してください</label><br />
 	<input name="loginId" id="loginId" /><br />

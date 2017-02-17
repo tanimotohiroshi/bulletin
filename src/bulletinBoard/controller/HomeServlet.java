@@ -23,7 +23,7 @@ import bulletinBoard.service.CategoryService;
 import bulletinBoard.service.CommentService;
 import bulletinBoard.service.PostingService;
 
-@WebServlet(urlPatterns = { "/home" })
+@WebServlet(urlPatterns = { "/index.jsp" })
 
 public class HomeServlet extends HttpServlet {
 

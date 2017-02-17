@@ -26,7 +26,7 @@
 
 	<c:if test="${ not empty loginUser }">
 		<c:out value="${ loginUser.name }" /><br />
-		<a href="home">ホーム</a>			<a href="logout">ログアウト</a>
+		<a href="./">ホーム</a>			<a href="logout">ログアウト</a>
 		<c:if test="${ loginUser.departmentId == 1 }">
 		<a href="controlUser">ユーザー管理画面へ</a>
 		</c:if> <br /><br />
@@ -52,7 +52,7 @@
 
 
  <div class="category-updateDate">
- 	<form action="./home" method="get">
+ 	<form action="./" method="get">
  	<a>カテゴリーと日付による指定</a><br /><br />
 
  		<label for="category">カテゴリー(未選択の場合はすべてのカテゴリーを表示)</label><br />
@@ -91,7 +91,7 @@
 
 
 
-					<form action="./home" method="get">
+					<form action="./" method="get">
 
 					<input type="hidden" name="deletePosting" value="${ posting.id }" />
 
@@ -118,7 +118,7 @@
 					<pre><c:out value="${ comment.message }" /></pre>
 					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
 
-						<form action="./home" method="get">
+						<form action="./" method="get">
 						<input type="hidden" name="deleteComment" value="${ comment.id }" />
 
 						<c:choose>
