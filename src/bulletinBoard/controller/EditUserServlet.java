@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import bulletinBoard.beans.Branch;
 import bulletinBoard.beans.Department;
 import bulletinBoard.beans.User;
@@ -36,7 +38,8 @@ public class EditUserServlet extends HttpServlet {
 		List<Department> departmentList = new DepartmentService().getDepartment();
 		departmentSession.setAttribute("departmentList", departmentList);
 
-		if ( request.getParameter("id") != null) {
+
+		if ( StringUtils.isEmpty(request.getParameter("id")) == false && request.getParameter("id").matches("[0-9]")) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			User user = new UserService().getUserId(id);
 
@@ -44,7 +47,7 @@ public class EditUserServlet extends HttpServlet {
 			request.getRequestDispatcher("editUser.jsp").forward(request, response);
 		} else {
 			List<String> messages = new ArrayList<String>();
-			messages.add("URLを確認してください");
+			messages.add("不正なユーザー情報です");
 			request.setAttribute("urlErrorMessage", messages);
 			request.getRequestDispatcher("controlUser.jsp").forward(request, response);
 		}

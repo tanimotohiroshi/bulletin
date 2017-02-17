@@ -24,6 +24,9 @@
 	</c:if>
 </font>
 
+
+<a href="controlUser">ユーザー管理画面へ</a>
+
 	<form action="./editUser" method="post">
 
 		<input type="hidden" name="id" value="${ editUserReading.id }" />
@@ -48,7 +51,8 @@
 		<label for="branchId">支店名</label>
 		<select name="branchId"  >
 			<c:forEach items="${ branchList }" var="branch"><br />
-				<option value="${ branch.id }" selected ><c:out value="${ branch.name }" /></option>
+				<option value="${ branch.id }" <c:if test="${ branch.id == editUserReading.branchId }" > selected </c:if>>
+				<c:out value="${ branch.name }" /></option>
 			</c:forEach>
 		</select>
 
@@ -57,7 +61,8 @@
 		<label for="departmentId">役職</label>
 		<select name="departmentId">
 			<c:forEach items="${ departmentList }" var="department"><br />
-				<option value="${ department.id }" ><c:out value="${ department.name }" /></option>
+				<option value="${ department.id }" <c:if test="${ department.id == editUserReading.departmentId }" > selected </c:if> >
+				<c:out value="${ department.name }" /></option>
 			</c:forEach>
 		</select>
 		<br />
@@ -68,10 +73,6 @@
 
 		<br />
 		<br />
-
-		<a href="controlUser">ユーザー管理画面へ</a>
-
-
 
 
 

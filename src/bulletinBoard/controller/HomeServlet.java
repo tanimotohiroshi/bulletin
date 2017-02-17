@@ -38,16 +38,6 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("categoryList", categoryList);
 
 
-		if ( StringUtils.isEmpty(request.getParameter("deletePosting")) == false) {
-			int deletePostingId = Integer.parseInt(request.getParameter("deletePosting"));
-			new PostingService().deletePosting(deletePostingId);
-		}
-
-		if ( StringUtils.isEmpty(request.getParameter("deleteComment")) == false) {
-			int deleteCommentId = Integer.parseInt(request.getParameter("deleteComment"));
-			new CommentService().deleteComment(deleteCommentId);
-		}
-
 		User user = (User) request.getSession().getAttribute("loginUser");
 
 		boolean homePostings;
@@ -93,12 +83,6 @@ public class HomeServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-//
-//		Valid valid = new Valid();
-//
-//		valid.setCategory(category);
-//		valid.setStartDate(startDate);
-//		valid.setEndDate(endDate);
 
 
 		session.setAttribute("postings", validPostings);
@@ -108,8 +92,7 @@ public class HomeServlet extends HttpServlet {
 		List<UserComment> comments = new CommentService().getComment();
 		session.setAttribute("comments", comments);
 
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
-
+		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}
 
 	@Override
@@ -117,5 +100,17 @@ public class HomeServlet extends HttpServlet {
 			throws IOException,ServerException{
 
 
+		if ( StringUtils.isEmpty(request.getParameter("deletePosting")) == false) {
+			int deletePostingId = Integer.parseInt(request.getParameter("deletePosting"));
+			new PostingService().deletePosting(deletePostingId);
+		}
+
+		if ( StringUtils.isEmpty(request.getParameter("deleteComment")) == false) {
+			int deleteCommentId = Integer.parseInt(request.getParameter("deleteComment"));
+			new CommentService().deleteComment(deleteCommentId);
+		}
+
+
+		response.sendRedirect("./");
 	}
 }

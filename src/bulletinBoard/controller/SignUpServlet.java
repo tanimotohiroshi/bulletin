@@ -48,7 +48,6 @@ public class SignUpServlet extends HttpServlet {
 			throws IOException, ServletException {
 
 		List<String> messages = new ArrayList<String>();
-		HttpSession session = request.getSession();
 
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
@@ -70,7 +69,7 @@ public class SignUpServlet extends HttpServlet {
 
 			response.sendRedirect("./controlUser");
 		} else {
-			session.setAttribute("errorMessages", messages);
+			request.setAttribute("errorMessages", messages);
 			request.setAttribute("editUser", user);
 			request.getRequestDispatcher("signUp.jsp").forward(request, response);
 		}

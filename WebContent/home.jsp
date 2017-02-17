@@ -8,6 +8,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム画面</title>
+
+<script type="text/javascript">
+
+	function disp(){
+		if ( window.confirm('投稿を削除します。よろしいですか？')) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	function commentDisp(){
+		if ( window.confirm('コメントを削除します。よろしいですか？')) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+</script>
+
+
+
 </head>
 <body>
 
@@ -55,16 +79,15 @@
  	<form action="./" method="get">
  	<a>カテゴリーと日付による指定</a><br /><br />
 
- 		<label for="category">カテゴリー(未選択の場合はすべてのカテゴリーを表示)</label><br />
-		<select name="getCategory"  >
-		<c:if test="${ reCategory != null }" >
-		<option value="${ reCategory }" > <c:out value="${ reCategory }(選択中のカテゴリー) " /></option>
-		</c:if>
-		<option value=""  >選択してください</option>
+
+		<label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label><br >
+		<select name="getCategory">
 			<c:forEach items="${ categoryList }" var="category"><br />
-				<option value="${ category.category }"  ><c:out value="${ category.category }" /></option>
+				<option value="${ category.category }" <c:if test="${ category.category == reCategory }" > selected </c:if> >
+				<c:out value="${ category.category }" /></option>
 			</c:forEach>
 		</select>
+
 
 
 		<br /><br />
@@ -91,17 +114,18 @@
 
 
 
-					<form action="./" method="get">
+					<form action="./" method="post">
 
 					<input type="hidden" name="deletePosting" value="${ posting.id }" />
 
 					<c:choose>
 						<c:when test="${ loginUser.departmentId == 2}" >
-						<input type="submit" value="投稿を削除する" /></c:when>
+
+						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
 						<c:when test="${ loginUser.id == posting.userId }" >
-						<input type="submit" value="投稿を削除する" /></c:when>
+						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
 						<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == posting.branchId }" >
-						<input type="submit" value="投稿を削除する" /></c:when>
+						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
 					</c:choose>
 
 					</form>
@@ -118,16 +142,16 @@
 					<pre><c:out value="${ comment.message }" /></pre>
 					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
 
-						<form action="./" method="get">
+						<form action="./" method="post">
 						<input type="hidden" name="deleteComment" value="${ comment.id }" />
 
 						<c:choose>
 							<c:when test="${ loginUser.departmentId == 2}" >
-							<input type="submit" value="コメントを削除する" /></c:when>
-							<c:when test="${ loginUser.id == posting.userId }" >
-							<input type="submit" value="コメントを削除する" /></c:when>
+							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
+							<c:when test="${ loginUser.id == comment.userId }" >
+							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
 							<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == comment.branchId }" >
-							<input type="submit" value="コメントを削除する" /></c:when>
+							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
 						</c:choose>
 
 						</form>

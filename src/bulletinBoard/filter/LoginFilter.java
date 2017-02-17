@@ -29,7 +29,7 @@ public class LoginFilter implements Filter {
 				if ( target.equals("/bulletinBoard/login")) {
 					chain.doFilter(request, response);
 				} else {
-					((HttpServletResponse) response).sendRedirect("./");
+					((HttpServletResponse) response).sendRedirect("login");
 					return;
 				}
 			} else {

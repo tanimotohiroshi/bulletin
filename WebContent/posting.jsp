@@ -31,14 +31,15 @@
 
 
 	<label for="message">投稿内容(1000文字以下)</label><br />
-	<textarea name="message"  rows="20" cols="50" value="${ posting.message }" class="tweet-box"  maxlength="1000"></textarea><br /><br />
+	<textarea  name="message" rows="20" cols="50"  class="tweet-box"><c:out value="${ posting.message }" /></textarea>
+	<br /><br />
 
 	<label for="category">カテゴリー(10文字以下)</label><br />
 	<input name="category" id="category" value="${ posting.category }"  maxlength="10" /><br /><br />
 	<c:remove var="posting" scope="session"/>
 
 
-	<input type="submit" value="コメントする"><br />
+	<input type="submit" value="投稿する"><br />
 
 
 

@@ -28,9 +28,10 @@ public class ControlUserServlet extends HttpServlet {
 		/* ユーザーの一覧表示 */
 		HttpSession session = request.getSession();
 		List<ControlUser> controlUser = new ControlUserService().getControlUser();
-
+		User user = (User) request.getSession().getAttribute("loginUser");
 
 		session.setAttribute("userList", controlUser);
+		session.setAttribute("loginUser", user);
 		request.getRequestDispatcher("controlUser.jsp").forward(request, response);
 	}
 

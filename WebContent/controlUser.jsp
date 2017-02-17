@@ -13,7 +13,25 @@
 <script type="text/javascript">
 
 	function disp(){
-		if ( window.confirm('よろしいですか')) {
+		if ( window.confirm('ユーザーの権限を復活します。よろしいですか？')) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	function stopDisp(){
+		if ( window.confirm('ユーザーの権限を停止します。よろしいですか？')) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	function deleteDisp(){
+		if ( window.confirm('ユーザーを削除します。よろしいですか？')) {
 			return true;
 
 		} else {
@@ -51,28 +69,32 @@
 
 			<br>
 
+			<c:if test="${ user.id != loginUser.id }" >
+
 			<form action="./controlUser" method="post" >
 
 			<c:if test="${ user.isStopped == 1}" >
-			<input type="hidden" name="stopId" value="0" >
-			<input type="hidden" name="id" value="${ user.id }" >
-			<input type="submit" value="復活" onClick="return disp();" />
+				<input type="hidden" name="stopId" value="0" >
+				<input type="hidden" name="id" value="${ user.id }" >
+				<input type="submit" value="復活" onClick="return disp();" />
 			</c:if>
 
 			<c:if test="${ user.isStopped == 0 }" >
-			<input type="hidden" name="permitId" value="1" >
-			<input type="hidden" name="id" value="${ user.id }" >
-			<input type="submit" value="停止" onClick="return disp();" />
+				<input type="hidden" name="permitId" value="1" >
+				<input type="hidden" name="id" value="${ user.id }" >
+				<input type="submit" value="停止" onClick="return stopDisp();" />
 			</c:if>
 
 			</form>
 
 			<form action="./controlUser" method="post" >
-			<input type="hidden" name="id" value="${ user.id }" />
-			<input type="hidden" name="delete" value="delete" />
-			<input type="submit" value="ユーザー削除" onClick="return disp();" />
+				<input type="hidden" name="id" value="${ user.id }" />
+				<input type="hidden" name="delete" value="delete" />
+				<input type="submit" value="ユーザー削除" onClick="return deleteDisp();" />
 
 			</form>
+
+			</c:if>
 
 			<br /><br /><br />
 		</c:forEach>

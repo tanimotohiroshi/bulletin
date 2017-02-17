@@ -33,7 +33,7 @@ public class ValidFilter implements Filter {
 				chain.doFilter(request, response);
 
 			} else {
-				messages.add("管理画面には入れません");
+				messages.add("アクセス権がありません");
 				session.setAttribute("controlErrorMessages", messages);
 				((HttpServletResponse) response).sendRedirect("./");
 				return;
