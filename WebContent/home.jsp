@@ -82,6 +82,7 @@
 
 		<label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label><br >
 		<select name="getCategory">
+			<option value="" >選択してください(未選択の場合は全選択)</option>
 			<c:forEach items="${ categoryList }" var="category"><br />
 				<option value="${ category.category }" <c:if test="${ category.category == reCategory }" > selected </c:if> >
 				<c:out value="${ category.category }" /></option>
