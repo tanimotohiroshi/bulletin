@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import bulletinBoard.beans.Comment;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.CommentService;
+import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/comment" })
 
@@ -23,6 +24,13 @@ public class CommentServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+
+
+		User user = (User) request.getSession().getAttribute("loginUser");
+		int id = user.getId();
+		UserService userService = new UserService();
+		User user1 = userService.getUserId(id);
+		request.setAttribute("loginUser", user1);
 
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}

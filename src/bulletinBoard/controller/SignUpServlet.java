@@ -23,9 +23,14 @@ import bulletinBoard.service.UserService;
 public class SignUpServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException,
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException,ServletException {
 
-			ServletException {
+		User user = (User) request.getSession().getAttribute("loginUser");
+		int id = user.getId();
+		UserService userService = new UserService();
+		User user1 = userService.getUserId(id);
+		request.setAttribute("loginUser", user1);
 
 		HttpSession branchSession = request.getSession();
 		HttpSession departmentSession = request.getSession();

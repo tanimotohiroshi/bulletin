@@ -25,6 +25,12 @@ public class ControlUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		User user2 = (User) request.getSession().getAttribute("loginUser");
+		int id = user2.getId();
+		UserService userService = new UserService();
+		User user1 = userService.getUserId(id);
+		request.setAttribute("loginUser", user1);
+
 		/* ユーザーの一覧表示 */
 		HttpSession session = request.getSession();
 		List<ControlUser> controlUser = new ControlUserService().getControlUser();

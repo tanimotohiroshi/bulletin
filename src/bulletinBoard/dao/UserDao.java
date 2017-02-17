@@ -48,6 +48,8 @@ public class UserDao {
 		}
 	}
 
+
+	/*ログインする際のsql*/
 	public User getUser(Connection connection, String loginId, String password) {
 
 		PreparedStatement ps = null;

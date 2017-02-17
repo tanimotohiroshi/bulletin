@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import bulletinBoard.beans.Posting;
 import bulletinBoard.beans.User;
 import bulletinBoard.service.PostingService;
+import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/posting" })
 
@@ -23,6 +24,12 @@ public class PostingServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+
+		User user = (User) request.getSession().getAttribute("loginUser");
+		int id = user.getId();
+		UserService userService = new UserService();
+		User user1 = userService.getUserId(id);
+		request.setAttribute("loginUser", user1);
 
 		request.getRequestDispatcher("posting.jsp").forward(request, response);
 	}

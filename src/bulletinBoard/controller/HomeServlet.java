@@ -22,6 +22,7 @@ import bulletinBoard.beans.UserPostings;
 import bulletinBoard.service.CategoryService;
 import bulletinBoard.service.CommentService;
 import bulletinBoard.service.PostingService;
+import bulletinBoard.service.UserService;
 
 @WebServlet(urlPatterns = { "/index.jsp" })
 
@@ -32,13 +33,20 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		HttpSession session = request.getSession();
+		User user = (User) request.getSession().getAttribute("loginUser");
+		int id = user.getId();
+		UserService userService = new UserService();
+		User user1 = userService.getUserId(id);
+		session.setAttribute("loginUser", user1);
+
+
 
 		/*カテゴリー表示*/
 		List<Category> categoryList = new CategoryService().getCategory();
 		request.setAttribute("categoryList", categoryList);
 
 
-		User user = (User) request.getSession().getAttribute("loginUser");
 
 		boolean homePostings;
 		if (user != null) {
@@ -80,10 +88,6 @@ public class HomeServlet extends HttpServlet {
 
 
 		List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);
-
-		HttpSession session = request.getSession();
-
-
 
 		session.setAttribute("postings", validPostings);
 		request.setAttribute("homePosting", homePostings);

@@ -28,6 +28,12 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		User user1 = (User) request.getSession().getAttribute("loginUser");
+		int userId = user1.getId();
+		UserService userService = new UserService();
+		User user2 = userService.getUserId(userId);
+		request.setAttribute("loginUser", user2);
+
 		/* 支店、役職のセレクトボックスのsession */
 		HttpSession branchSession = request.getSession();
 		HttpSession departmentSession = request.getSession();
