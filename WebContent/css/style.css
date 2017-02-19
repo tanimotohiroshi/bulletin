@@ -14,9 +14,99 @@ body {
     padding: 2em;
 }
 
-.comment-title {
+.title {
 	font-size: 30px;
 	color: #82636b;
+}
+
+.subtitle{
+	font-size: 22px;
+	color: #82636b;
+}
+
+.name{
+	font-size: 20px;
+	color: #82636b;
+}
+
+.message{
+	font-family: "MS ゴシック",sans-serif;
+	font-size: 16px;
+}
+
+.select {
+	width: 55%;
+	padding: 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #999;
+	background: #eee;
+	background: url(arrow01.png) right 50% no-repeat, -webkit-linear-gradient(top, #fff 0%,#efebe1 100%);
+	background: url(arrow01.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#efebe1 100%);
+	background-size: 20px, 100%;
+}
+
+.comment-btn {
+	background: #f08080;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #111;
+    width: 130px;
+    padding: 10px 0;
+
+}
+
+.home-btn{
+	background: #f08080;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #111;
+    width: 110px;
+    padding: 10px 0;
+}
+
+.c-btn {
+	background: #f5deb3;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #111;
+    width: 90px;
+    padding: 8px 0;
+}
+
+.btn {
+    background: #fff8dc;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #111;
+    width: 90px;
+    padding: 8px 0;
+}
+
+.red-btn {
+	background: #ff7f50;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #000000;
+    width: 70px;
+    padding: 8px 0;
+}
+
+
+.error {
+	color: red;
+	font-size: 20px;
 }
 
 
@@ -44,6 +134,10 @@ body {
 .line {
 	border-top: 2px solid #82636b;
     border-radius: 240px 15px 185px 15px / 15px 200px 15px 185px;
+}
+
+.comment-line {
+	border-top: 1px solid #d3d3d3;
 }
 
 .posting-box {

@@ -28,6 +28,7 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		/*ページの切り替えのたびにユーザー情報を更新*/
 		User user1 = (User) request.getSession().getAttribute("loginUser");
 		int userId = user1.getId();
 		UserService userService = new UserService();
@@ -45,7 +46,7 @@ public class EditUserServlet extends HttpServlet {
 		departmentSession.setAttribute("departmentList", departmentList);
 
 
-		if ( StringUtils.isEmpty(request.getParameter("id")) == false && request.getParameter("id").matches("[0-9]")) {
+		if ( StringUtils.isEmpty(request.getParameter("id")) == false && request.getParameter("id").matches("[0-9]+$")) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			User user = new UserService().getUserId(id);
 
@@ -91,14 +92,30 @@ public class EditUserServlet extends HttpServlet {
 
 			if (password1.length() == 0 || password2.length() == 0) {
 
-				new UserService().update(user);
-			} else {
+				try{
+					new UserService().update(user);
+					response.sendRedirect("./controlUser");
+				} catch ( RuntimeException e){
+					messages.add("ログインIDもしくは名前が既に使用されています");
+					request.setAttribute("editErrorMessages", messages);
+					request.setAttribute("editUserReading", user);
+					request.getRequestDispatcher("editUser.jsp").forward(request, response);
 
-				user.setPassword(password2);
-				new UserService().passwordUpdate(user);
+				}
+			} else {
+				try{
+					user.setPassword(password2);
+					new UserService().passwordUpdate(user);
+					response.sendRedirect("./controlUser");
+				} catch ( RuntimeException e) {
+					messages.add("ログインIDもしくは名前が既に使用されています");
+					request.setAttribute("editErrorMessages", messages);
+					request.setAttribute("editUserReading", user);
+					request.getRequestDispatcher("editUser.jsp").forward(request, response);
+				}
 			}
 
-			response.sendRedirect("./controlUser");
+
 		} else {
 			request.setAttribute("editErrorMessages", messages);
 			request.setAttribute("editUserReading", user);

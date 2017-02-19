@@ -25,6 +25,7 @@ public class ControlUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		/*ページの切り替えのたびにユーザー情報を更新*/
 		User user2 = (User) request.getSession().getAttribute("loginUser");
 		int id = user2.getId();
 		UserService userService = new UserService();

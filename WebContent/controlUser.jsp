@@ -46,7 +46,9 @@
 <body>
 <div class="main-contents">
 
+<div class="title">
 <h3>ユーザー管理画面</h3>
+</div>
 
 	<a href="./">ホーム</a><br /><br />
 
@@ -78,7 +80,7 @@
 			<th><c:out value="${ user.departmentName }" /></th>
 
 			<th><form action="./editUser" method="get">
-			<input type="submit" value="ユーザー編集" />
+			<input type="submit" class="btn" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
 			</th>
@@ -90,13 +92,13 @@
 			<c:if test="${ user.isStopped == 1}" >
 				<input type="hidden" name="stopId" value="0" >
 				<input type="hidden" name="id" value="${ user.id }" >
-				<input type="submit" value="復活" onClick="return disp();" />
+				<input type="submit" class="btn" value="復活" onClick="return disp();" />
 			</c:if>
 
 			<c:if test="${ user.isStopped == 0 }" >
 				<input type="hidden" name="permitId" value="1" >
 				<input type="hidden" name="id" value="${ user.id }" >
-				<input type="submit" value="停止" onClick="return stopDisp();" />
+				<input type="submit" class="red-btn" value="停止" onClick="return stopDisp();" />
 			</c:if>
 
 			</form>
@@ -108,7 +110,7 @@
 			<form action="./controlUser" method="post" >
 				<input type="hidden" name="id" value="${ user.id }" />
 				<input type="hidden" name="delete" value="delete" />
-				<input type="submit" value="ユーザー削除" onClick="return deleteDisp();" />
+				<input type="submit" class="red-btn" value="削除" onClick="return deleteDisp();" />
 
 			</form>
 

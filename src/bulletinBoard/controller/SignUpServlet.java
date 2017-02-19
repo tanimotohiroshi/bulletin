@@ -26,6 +26,7 @@ public class SignUpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException,ServletException {
 
+		/*ページの切り替えのたびにユーザー情報を更新*/
 		User user = (User) request.getSession().getAttribute("loginUser");
 		int id = user.getId();
 		UserService userService = new UserService();
@@ -54,6 +55,7 @@ public class SignUpServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 
+
 		int branchId = Integer.parseInt(request.getParameter("branchId"));
 		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
 
@@ -69,10 +71,19 @@ public class SignUpServlet extends HttpServlet {
 
 			user.setPassword(request.getParameter("password2"));
 
-			new UserService().register(user);
+			try{
+				new UserService().register(user);
+				response.sendRedirect("./controlUser");
+
+			} catch (RuntimeException e) {
+				messages.add("ログインIDもしくは名前が既に使用されています");
+				request.setAttribute("errorMessages", messages);
+				request.setAttribute("editUser", user);
+				request.getRequestDispatcher("signUp.jsp").forward(request, response);;
+
+			}
 
 
-			response.sendRedirect("./controlUser");
 		} else {
 			request.setAttribute("errorMessages", messages);
 			request.setAttribute("editUser", user);

@@ -10,8 +10,9 @@
 </head>
 <body>
 <div class="main-contents">
+<div class="title">
 <h2>新規投稿画面</h2>
-
+</div>
 
 	<font color="red">
 	<c:if test="${ not empty errorMessages }">
@@ -29,20 +30,36 @@
 
 <form action="./posting" method="post">
 
-	<label for="title" >タイトル(50文字以下)</label>
+	<div class="subtitle" >タイトル(50文字以下)</div>
 	<input name="title" id="title" value="${ posting.title }"  maxlength="50" /><br /><br />
 
 
-	<label for="message">投稿内容(1000文字以下)</label>
+	<div class="subtitle">投稿内容(1000文字以下)</div>
 	<textarea  name="message" rows="20" cols="50"  class="tweet-box"><c:out value="${ posting.message }" /></textarea>
 	<br /><br />
 
-	<label for="category">カテゴリー(10文字以下)</label>
-	<input name="category" id="category" value="${ posting.category }"  maxlength="10" /><br /><br />
+
+	<div class="subtitle"><a>新規カテゴリーを入力もしくは既存カテゴリーから選択してください</a></div>
+	<br /><br />
+
+	<div class="subtitle">新規カテゴリー(10文字以下)</div>
+	<input name="category" id="category" value="${ posting.category }"  maxlength="10" />
+
+	<div class="subtitle">既存カテゴリー</div>
+		<select name="getCategory">
+			<option value="" >選択してください</option>
+			<c:forEach items="${ categoryList }" var="category"><br />
+				<option value="${ category.category }" <c:if test="${ category.category == reCategory }" > selected </c:if> >
+				<c:out value="${ category.category }" /></option>
+			</c:forEach>
+		</select>
+
+
+
 	<c:remove var="posting" scope="session"/>
 
-
-	<input type="submit" value="投稿する"><br />
+	<br /><br />
+	<input type="submit" class="c-btn" value="投稿する"><br />
 
 
 

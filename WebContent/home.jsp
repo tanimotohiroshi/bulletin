@@ -37,21 +37,23 @@
 
 <div class="main-contents">
 
+	<div class="title">
 	<h1>ホーム</h1>
+	</div>
 
-<div class="header">
 
-	<font color="red">
+
+	<div class="error">
 		<c:if test="${ not empty controlErrorMessages }">
 			<c:out value="${ controlErrorMessages }" /><br /><br />
 			<c:remove var="controlErrorMessages" scope="session"/>
 		</c:if>
-	</font>
+	</div>
 
-
+<div class="header">
 
 	<c:if test="${ not empty loginUser }">
-		<a>ログインユーザー名　　</a>
+		<div class="subtitle"><a>ユーザー</a></div>
 		<c:out value="${ loginUser.name }" /><br /><br />
 		<a href="./">ホーム</a>			  <a href="posting">新規投稿</a>
 		<c:if test="${ loginUser.departmentId == 1 }">
@@ -75,17 +77,21 @@
 		</font>
 
 
-<br />
 
 
 
- <div class="category-updateDate">
+
+<div class="subtitle">
+ 	<a>カテゴリーと日付による指定</a>
+</div>
+
+
+<div class="posting-box">
  	<form action="./" method="get">
- 	<a>カテゴリーと日付による指定</a><br />
+		<div class="name"><label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label>
+		</div><br >
 
-
-		<label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label><br >
-		<select name="getCategory">
+		<select name="getCategory" class="select">
 			<option value="" >選択してください(未選択の場合は全選択)</option>
 			<c:forEach items="${ categoryList }" var="category"><br />
 				<option value="${ category.category }" <c:if test="${ category.category == reCategory }" > selected </c:if> >
@@ -95,12 +101,14 @@
 
 
 
+
 		<br /><br />
-		<label for="date"> 投稿日時 </label><br />
+		<div class="name"><label for="date"> 投稿日時 </label></div><br />
 			<input type="date" name="startDate" value="${ date1 }" />
 			 ～ <input type="date" name="endDate" value="${ date2 }"/><br /><br />
-		<input type="submit" value="検索" />
+		<input type="submit" class="btn" value="検索" />
 	</form>
+
 </div>
 <br /><br />
 
@@ -113,19 +121,20 @@
 
 			<c:forEach items="${ postings }" var="posting">
 			<br /><br />
-			<div class="comment-title">投稿</div>
+			<div class="title">投稿</div>
 			<div class="posting-box" >
-				<a>タイトル</a><br />
+				<div class="name"><a>タイトル</a></div><br />
 				<c:out value="${ posting.title }" /><br /><br />
-				<a>投稿内容</a><br />
-				<div class="border">
-				<pre><c:out value="${ posting.message }" /></pre><br /><br />
+				<div class="name"><a>投稿内容</a></div>
+				<div class="message">
+				<pre><c:out value="${ posting.message }" /></pre>
 				</div>
-				<a>投稿者　　</a>
-				<c:out value="${ posting.name }" /><br />
-				<a>カテゴリー　　</a>
+				<div class="name"><a>投稿者</a></div>
+				<c:out value="${ posting.name }" />
+				<div class="name"><a>カテゴリー</a></div>
 				<c:out value="${ posting.category }" /><br />
-				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
+				<div class="name">投稿日時</div>
+				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
 
 
 
@@ -136,11 +145,11 @@
 					<c:choose>
 						<c:when test="${ loginUser.departmentId == 2}" >
 
-						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
+						<input type="submit" class="home-btn" value="投稿を削除する" onClick="return disp();" /></c:when>
 						<c:when test="${ loginUser.id == posting.userId }" >
-						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
+						<input type="submit" class="home-btn" value="投稿を削除する" onClick="return disp();" /></c:when>
 						<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == posting.branchId }" >
-						<input type="submit" value="投稿を削除する" onClick="return disp();" /></c:when>
+						<input type="submit" class="home-btn" value="投稿を削除する" onClick="return disp();" /></c:when>
 					</c:choose>
 
 					</form>
@@ -151,7 +160,7 @@
 				<div class="line"></div>
 				<br />
 
-				<div class="comment-title">コメント</div>
+				<div class="title">コメント</div>
 				<br />
 
 
@@ -160,10 +169,14 @@
 				<c:forEach items="${ comments }" var="comment" >
 
 				<c:if test="${ posting.id == comment.postingId }" >
-					<a>名前　　</a>
-					<c:out value="${ comment.name }" />
+					<font color="#82636b" >名前　　</font>
+					<c:out value="${ comment.name }" /><br /><br />
+					<font color="#82636b" >コメント</font>
+					<div class="message">
 					<pre><c:out value="${ comment.message }" /></pre>
-					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" />
+					</div>
+					<font color="#82636b" >コメント日時　　</font>
+					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
 
 
 						<form action="./" method="post">
@@ -171,25 +184,27 @@
 
 						<c:choose>
 							<c:when test="${ loginUser.departmentId == 2}" >
-							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
+							<input type="submit" class="comment-btn" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
 							<c:when test="${ loginUser.id == comment.userId }" >
-							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
+							<input type="submit" class="comment-btn" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
 							<c:when test="${ loginUser.departmentId == 3 && loginUser.branchId == comment.branchId }" >
-							<input type="submit" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
+							<input type="submit" class="comment-btn" value="コメントを削除する" onClick="return commentDisp();" /></c:when>
 						</c:choose>
 
 						</form>
+					<br />
+					<div class="comment-line"></div>
+					<br />
 
 				</c:if>
 				</c:forEach>
 				</div>
 
-				<br /><br />
 
-				<form action="./comment" method="post">コメントする(500文字まで)<br />
-					<textarea name="comment" rows="5" cols="10" class="tweet-box"></textarea><br />
+				<form action="./comment" class="subtitle" method="post">コメントする(500文字まで)<br />
+					<textarea name="comment" rows="5" cols="100" ></textarea><br /><br />
 					<input type="hidden" name="postingId" value="${ posting.id }" >
-					<input type="submit" value="コメントする">
+					<input type="submit" class="c-btn" value="コメントする">
 				</form>
 				<br />
 				</div>

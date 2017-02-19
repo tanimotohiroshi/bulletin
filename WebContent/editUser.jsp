@@ -75,7 +75,7 @@
 		<br />
 		<br />
 
-		<input type="submit" value="登録" />
+		<input type="submit" class="c-btn" value="登録" />
 	</form>
 
 		<br />

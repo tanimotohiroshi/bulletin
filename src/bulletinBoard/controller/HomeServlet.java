@@ -33,6 +33,7 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		/*ページの切り替えのたびにユーザー情報を更新*/
 		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("loginUser");
 		int id = user.getId();

@@ -16,8 +16,9 @@
 
 
 <div class="main-contents">
-
+	<div class="title">
 	<h2>ユーザー新規登録画面</h2>
+	</div>
 
 	<br />
 	<a href="controlUser">ユーザー管理画面へ</a>
@@ -37,22 +38,22 @@
 
 	<form action="./signUp" method="post">
 
-		<label for="loginId">ログインID</label>
+		<div class="name">ログインID</div>
 		<input name="loginId" id="loginId" maxlength="20"
 		value="${ editUser.loginId }" /><br />
 
-		<label for="password">パスワード</label>
+		<div class="name">パスワード</div>
 		<input name="password1" id="password" type="password" maxlength="255"  /><br />
 
-		<label for="password">パスワード(確認用)</label>
+		<div class="name">パスワード(確認用)</div>
 		<input name="password2" id="password" type="password" maxlength="255"  /><br />
 
 
-		<label for="name">名前</label>
+		<div class="name">名前</div>
 		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br />
 
 
-		<label for="branchId">支店名</label>
+		<div class="name">支店</div>
 		<select name="branchId">
 			<c:forEach items="${ branchList }" var="branch">
 				<option value="${ branch.id }" <c:if test="${ branch.id == editUser.branchId }"> selected </c:if>>
@@ -62,7 +63,7 @@
 
 
 
-		<label for="departmentId">役職</label>
+		<div class="name">役職</div>
 		<select name="departmentId">
 			<c:forEach items="${ departmentList }" var="department"><br />
 				<option value="${ department.id }" <c:if test="${ department.id == editUser.departmentId }"> selected </c:if>>
@@ -72,7 +73,7 @@
 		<br />
 		<br />
 
-		<input type="submit" value="登録" /> <br />
+		<input type="submit" class="c-btn" value="登録" /> <br />
 
 
 	</form>
