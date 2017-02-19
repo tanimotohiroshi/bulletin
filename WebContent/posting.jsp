@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./css/style.css" rel="stylesheet" type="text/css" >
 <title>新規投稿画面</title>
 </head>
 <body>
+<div class="main-contents">
 <h2>新規投稿画面</h2>
 
-<form action="./posting" method="post">
 
 	<font color="red">
 	<c:if test="${ not empty errorMessages }">
@@ -21,20 +22,22 @@
 	</c:if>
 	</font>
 
-<a href="./">ホームへ戻る</a>
+<a href="./">ホーム</a>
 
 <br /><br />
 
 
-	<label for="title" >タイトル(50文字以下)</label><br />
+<form action="./posting" method="post">
+
+	<label for="title" >タイトル(50文字以下)</label>
 	<input name="title" id="title" value="${ posting.title }"  maxlength="50" /><br /><br />
 
 
-	<label for="message">投稿内容(1000文字以下)</label><br />
+	<label for="message">投稿内容(1000文字以下)</label>
 	<textarea  name="message" rows="20" cols="50"  class="tweet-box"><c:out value="${ posting.message }" /></textarea>
 	<br /><br />
 
-	<label for="category">カテゴリー(10文字以下)</label><br />
+	<label for="category">カテゴリー(10文字以下)</label>
 	<input name="category" id="category" value="${ posting.category }"  maxlength="10" /><br /><br />
 	<c:remove var="posting" scope="session"/>
 
@@ -45,8 +48,9 @@
 
 </form>
 
-
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
+
+</div>
 </body>
 </html>

@@ -9,14 +9,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./css/style.css" rel="stylesheet" type="text/css" >
 <title>ユーザー編集画面</title>
 </head>
 <body>
+<div class="main-contents">
 
 <h3>ユーザー編集画面</h3>
 
+
+<a href="controlUser">ユーザー管理画面へ</a>
+
 <font color="red">
 	<c:if test="${ not empty editErrorMessages }">
+	<br />
 		<c:forEach items="${ editErrorMessages }" var="message"><br />
 			<c:out value="${ message }" />
 		</c:forEach>
@@ -25,7 +31,8 @@
 </font>
 
 
-<a href="controlUser">ユーザー管理画面へ</a>
+
+<br /><br />
 
 	<form action="./editUser" method="post">
 
@@ -79,5 +86,6 @@
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
+</div>
 </body>
 </html>

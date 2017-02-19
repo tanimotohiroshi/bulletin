@@ -30,12 +30,14 @@
 	}
 </script>
 
-
+<link href="./css/style.css" rel="stylesheet" type="text/css" >
 
 </head>
 <body>
 
-	<h3>ホーム画面</h3>
+<div class="main-contents">
+
+	<h1>ホーム</h1>
 
 <div class="header">
 
@@ -49,12 +51,14 @@
 
 
 	<c:if test="${ not empty loginUser }">
-		<c:out value="${ loginUser.name }" /><br />
-		<a href="./">ホーム</a>			<a href="logout">ログアウト</a>
+		<a>ログインユーザー名　　</a>
+		<c:out value="${ loginUser.name }" /><br /><br />
+		<a href="./">ホーム</a>			  <a href="posting">新規投稿</a>
 		<c:if test="${ loginUser.departmentId == 1 }">
 		<a href="controlUser">ユーザー管理画面へ</a>
 		</c:if> <br /><br />
-		<a href="posting">新規投稿</a><br /><br />
+		<a href="logout">ログアウト</a>
+		<br /><br />
 	</c:if>
 </div>
 
@@ -77,7 +81,7 @@
 
  <div class="category-updateDate">
  	<form action="./" method="get">
- 	<a>カテゴリーと日付による指定</a><br /><br />
+ 	<a>カテゴリーと日付による指定</a><br />
 
 
 		<label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label><br >
@@ -94,7 +98,7 @@
 		<br /><br />
 		<label for="date"> 投稿日時 </label><br />
 			<input type="date" name="startDate" value="${ date1 }" />
-			 ～ <input type="date" name="endDate" value="${ date2 }"/><br />
+			 ～ <input type="date" name="endDate" value="${ date2 }"/><br /><br />
 		<input type="submit" value="検索" />
 	</form>
 </div>
@@ -102,14 +106,24 @@
 
 
 
-	<div class="posting-form" >
+
 
 		<div class="postings">
 
+
 			<c:forEach items="${ postings }" var="posting">
-				<c:out value="${ posting.title }" /><br />
-				<pre><c:out value="${ posting.message }" /></pre><br />
+			<br /><br />
+			<div class="comment-title">投稿</div>
+			<div class="posting-box" >
+				<a>タイトル</a><br />
+				<c:out value="${ posting.title }" /><br /><br />
+				<a>投稿内容</a><br />
+				<div class="border">
+				<pre><c:out value="${ posting.message }" /></pre><br /><br />
+				</div>
+				<a>投稿者　　</a>
 				<c:out value="${ posting.name }" /><br />
+				<a>カテゴリー　　</a>
 				<c:out value="${ posting.category }" /><br />
 				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
 
@@ -134,14 +148,23 @@
 				<br /><br />
 
 
+				<div class="line"></div>
+				<br />
+
+				<div class="comment-title">コメント</div>
+				<br />
+
+
 	 			<div class="comment-form">
 
 				<c:forEach items="${ comments }" var="comment" >
 
 				<c:if test="${ posting.id == comment.postingId }" >
+					<a>名前　　</a>
 					<c:out value="${ comment.name }" />
 					<pre><c:out value="${ comment.message }" /></pre>
-					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br />
+					<fmt:formatDate value="${ comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" />
+
 
 						<form action="./" method="post">
 						<input type="hidden" name="deleteComment" value="${ comment.id }" />
@@ -161,28 +184,28 @@
 				</c:forEach>
 				</div>
 
+				<br /><br />
+
 				<form action="./comment" method="post">コメントする(500文字まで)<br />
-					<textarea name="comment" rows="10" cols="50" class="tweet-box"></textarea><br />
+					<textarea name="comment" rows="5" cols="10" class="tweet-box"></textarea><br />
 					<input type="hidden" name="postingId" value="${ posting.id }" >
 					<input type="submit" value="コメントする">
 				</form>
 				<br />
+				</div>
 			</c:forEach>
 
-		</div>
+
+
 	</div>
 
-
-
-
-
-
-
-
-<br /><br /><br />
+<br />
+<a href="./">ホーム</a>
+<br /><br />
 
 	<div class="copyright">copyright(c) tanimotohiroshi</div>
 
+</div>
 
 </body>
 </html>

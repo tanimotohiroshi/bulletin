@@ -8,18 +8,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./css/style.css" rel="stylesheet" type="text/css" >
 <title>ユーザー新規登録画面</title>
 </head>
 <body>
 
+
+
+<div class="main-contents">
+
 	<h2>ユーザー新規登録画面</h2>
+
+	<br />
+	<a href="controlUser">ユーザー管理画面へ</a>
+
+	<br /><br />
 
 	<font color="red">
 	<c:if test="${ not empty errorMessages }">
-		<c:forEach items="${ errorMessages }" var="message"><br />
-			<c:out value="${ message }" />
+		<c:forEach items="${ errorMessages }" var="message">
+			<c:out value="${ message }" /><br />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
+	<br />
 	</c:if>
 	</font>
 
@@ -43,7 +54,7 @@
 
 		<label for="branchId">支店名</label>
 		<select name="branchId">
-			<c:forEach items="${ branchList }" var="branch"><br />
+			<c:forEach items="${ branchList }" var="branch">
 				<option value="${ branch.id }" <c:if test="${ branch.id == editUser.branchId }"> selected </c:if>>
 				<c:out value="${ branch.name }" /></option>
 			</c:forEach>
@@ -63,11 +74,11 @@
 
 		<input type="submit" value="登録" /> <br />
 
-		<a href="controlUser">ユーザー管理画面へ</a>
 
 	</form>
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
+</div>
 </body>
 </html>

@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./css/style.css" rel="stylesheet" type="text/css" >
+
 <title>ユーザー管理画面</title>
 
 
@@ -42,34 +44,46 @@
 
 </head>
 <body>
+<div class="main-contents">
 
 <h3>ユーザー管理画面</h3>
 
-	<a href="./signUp">ユーザー新規登録</a><br /><br />
+	<a href="./">ホーム</a><br /><br />
 
-	<a href="./">ホーム画面へ</a>
-<br /><br /><br />
+	<a href="./signUp">ユーザー新規登録</a>
+<br /><br />
 
 				<font color="red">
 				<c:out value="${ urlErrorMessage }" />
 				</font>
 
-<br /><br />
 
-	<div class="usersList">
+	<table border="3" align="center">
+	<tr>
+	<th>ログインID</th>
+	<th>名前</th>
+	<th>支店名</th>
+	<th>役職名</th>
+	<th>ユーザー編集</th>
+	<th>復活・停止</th>
+	<th>削除</th>
+	</tr>
+
 		<c:forEach items="${ userList }" var="user">
-			<c:out value="${ user.loginId }" />
-			<c:out value="${ user.name }" />
-			<c:out value="${ user.branchName }" />
-			<c:out value="${ user.departmentName }" /><br /><br />
-			<form action="./editUser" method="get">
+		<br />
+			<tr>
+			<th><c:out value="${ user.loginId }" /></th>
+			<th><c:out value="${ user.name }" /></th>
+			<th><c:out value="${ user.branchName }" /></th>
+			<th><c:out value="${ user.departmentName }" /></th>
+
+			<th><form action="./editUser" method="get">
 			<input type="submit" value="ユーザー編集" />
 			<input type="hidden" name="id" value="${ user.id }" >
 			</form>
+			</th>
 
-			<br>
-
-			<c:if test="${ user.id != loginUser.id }" >
+			<th><c:if test="${ user.id != loginUser.id }" >
 
 			<form action="./controlUser" method="post" >
 
@@ -86,7 +100,11 @@
 			</c:if>
 
 			</form>
+			</c:if>
+			</th>
 
+			<th>
+			<c:if test="${ user.id != loginUser.id }" >
 			<form action="./controlUser" method="post" >
 				<input type="hidden" name="id" value="${ user.id }" />
 				<input type="hidden" name="delete" value="delete" />
@@ -95,12 +113,10 @@
 			</form>
 
 			</c:if>
-
-			<br /><br /><br />
+			</th>
+			</tr>
 		</c:forEach>
-	</div>
-
-
+	</table>
 
 
 <br /><br />
@@ -109,5 +125,6 @@
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
+</div>
 </body>
 </html>
