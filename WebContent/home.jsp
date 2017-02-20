@@ -53,8 +53,9 @@
 <div class="header">
 
 	<c:if test="${ not empty loginUser }">
-		<div class="subtitle"><a>ユーザー</a></div>
-		<c:out value="${ loginUser.name }" /><br /><br />
+		<div class="subtitle"><a>ユーザー　</a>
+		<c:out value="${ loginUser.name }" />
+		</div><br /><br />
 		<a href="./">ホーム</a>			  <a href="posting">新規投稿</a>
 		<c:if test="${ loginUser.departmentId == 1 }">
 		<a href="controlUser">ユーザー管理画面へ</a>
