@@ -3,11 +3,22 @@ body {
 }
 
 .main-contents {
-	align: center;
+
 	background-color: #ffffff;
 	height: 100%;
 	width: 800px;
 	text-align: center;
+	border: 4px solid #82636b;
+    border-radius: 240px 15px 185px 15px / 15px 200px 15px 185px;
+    margin: 2em auto;
+    padding: 2em;
+}
+
+.posting-contents {
+	background-color: #ffffff;
+	height: 100%;
+	width: 800px;
+	text-align: left;
 	border: 4px solid #82636b;
     border-radius: 240px 15px 185px 15px / 15px 200px 15px 185px;
     margin: 2em 0;
@@ -30,7 +41,7 @@ body {
 }
 
 .message{
-	font-family: "MS „Ç¥„Ç∑„ÉÉ„ÇØ",sans-serif;
+	font-family: "MS ÉSÉVÉbÉN",sans-serif;
 	font-size: 16px;
 }
 
@@ -46,6 +57,33 @@ body {
 	background: url(arrow01.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#efebe1 100%);
 	background-size: 20px, 100%;
 }
+
+.mini-select {
+	width: 20%;
+	padding: 8px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #999;
+	background: #eee;
+	background: url(arrow01.png) right 50% no-repeat, -webkit-linear-gradient(top, #fff 0%,#efebe1 100%);
+	background: url(arrow01.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#efebe1 100%);
+	background-size: 10px, 100%;
+}
+
+.signUp-select {
+	width: 15%;
+	padding: 6px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #999;
+	background: #eee;
+	background: url(arrow01.png) right 50% no-repeat, -webkit-linear-gradient(top, #fff 0%,#efebe1 100%);
+	background: url(arrow01.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#efebe1 100%);
+	background-size: 10px, 100%;
+}
+
 
 .comment-btn {
 	background: #f08080;

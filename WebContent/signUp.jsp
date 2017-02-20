@@ -54,7 +54,7 @@
 
 
 		<div class="name">支店</div>
-		<select name="branchId">
+		<select name="branchId" class="signUp-select">
 			<c:forEach items="${ branchList }" var="branch">
 				<option value="${ branch.id }" <c:if test="${ branch.id == editUser.branchId }"> selected </c:if>>
 				<c:out value="${ branch.name }" /></option>
@@ -63,8 +63,8 @@
 
 
 
-		<div class="name">役職</div>
-		<select name="departmentId">
+		<div class="name" >役職</div>
+		<select name="departmentId" class="signUp-select">
 			<c:forEach items="${ departmentList }" var="department"><br />
 				<option value="${ department.id }" <c:if test="${ department.id == editUser.departmentId }"> selected </c:if>>
 				<c:out value="${ department.name }" /></option>

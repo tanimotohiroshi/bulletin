@@ -7,12 +7,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ログイン画面</title>
-	<link href="../css/style.css" rel="stylesheet" type="text/css" >
+	<link href="./css/style.css" rel="stylesheet" type="text/css" >
 
 </head>
 <body>
+<div class="main-contents">
 
-<h3>ログイン画面<br></h3>
+<div class="title">
+<h3>ログイン画面</h3>
+</div>
 
 	<font color="red">
 	<c:if test="${ not empty errorMessages }">
@@ -25,25 +28,26 @@
 
 <br /><br />
 
-<div class="main-contents">
+
 
 	<form action="./login" method="post">
 
-		<label for="loginId">ログインIDを入力してください</label><br />
+		<div class="subtitle">ログインIDを入力してください</div>
 		<input name="loginId" id="loginId" /><br />
-
-		<label for="password">パスワードを入力してください</label><br />
+<br />
+		<div class="subtitle">パスワードを入力してください</div>
 		<input name="password" type="password" id="password" /><br /><br />
 
-		<input type="submit"  value="送信" /><br />
+		<input type="submit" class="c-btn"  value="ログインする" /><br />
 
 	</form>
 
-</div>
 
 
 <br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
+
+</div>
 
 </body>
 </html>

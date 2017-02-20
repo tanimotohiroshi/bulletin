@@ -15,10 +15,12 @@
 <body>
 <div class="main-contents">
 
+<div class="title">
 <h3>ユーザー編集画面</h3>
-
+</div>
 
 <a href="controlUser">ユーザー管理画面へ</a>
+
 
 <font color="red">
 	<c:if test="${ not empty editErrorMessages }">
@@ -38,25 +40,25 @@
 
 		<input type="hidden" name="id" value="${ editUserReading.id }" />
 
-		<label for="loginId">ログインID</label>
+		<div class="subtitle">ログインID</div>
 		<input name="loginId" id="loginId" maxlength="20"
 		value="${ editUserReading.loginId }" /><br />
 
-		<label for="password">パスワード</label>
+		<div class="subtitle">パスワード</div>
 		<input name="password1" id="password" type="password" maxlength="255"
 		value="${ password2 }"/><br />
 
-		<label for="password">パスワード(確認用)</label>
+		<div class="subtitle">パスワード(確認用)</div>
 		<input name="password2" id="password" type="password" maxlength="255"
 		value="${ password3 }" /><br />
 
-		<label for="name">名前</label>
+		<div class="subtitle">名前</div>
 		<input name="name" id="name" maxlength="10"
 		value="${ editUserReading.name }"/><br />
 
 
-		<label for="branchId">支店名</label>
-		<select name="branchId"  >
+		<div class="subtitle">支店</div>
+		<select name="branchId" class="signUp-select" >
 			<c:forEach items="${ branchList }" var="branch"><br />
 				<option value="${ branch.id }" <c:if test="${ branch.id == editUserReading.branchId }" > selected </c:if>>
 				<c:out value="${ branch.name }" /></option>
@@ -65,8 +67,8 @@
 
 
 
-		<label for="departmentId">役職</label>
-		<select name="departmentId">
+		<div class="subtitle">役職</div>
+		<select name="departmentId" class="signUp-select">
 			<c:forEach items="${ departmentList }" var="department"><br />
 				<option value="${ department.id }" <c:if test="${ department.id == editUserReading.departmentId }" > selected </c:if> >
 				<c:out value="${ department.name }" /></option>

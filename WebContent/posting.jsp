@@ -9,7 +9,8 @@
 <title>新規投稿画面</title>
 </head>
 <body>
-<div class="main-contents">
+<div class="posting-contents">
+
 <div class="title">
 <h2>新規投稿画面</h2>
 </div>
@@ -36,17 +37,17 @@
 
 	<div class="subtitle">投稿内容(1000文字以下)</div>
 	<textarea  name="message" rows="20" cols="50"  class="tweet-box"><c:out value="${ posting.message }" /></textarea>
-	<br /><br />
+	<br /><br /><br />
 
 
 	<div class="subtitle"><a>新規カテゴリーを入力もしくは既存カテゴリーから選択してください</a></div>
-	<br /><br />
+	<br />
 
 	<div class="subtitle">新規カテゴリー(10文字以下)</div>
 	<input name="category" id="category" value="${ posting.category }"  maxlength="10" />
 
 	<div class="subtitle">既存カテゴリー</div>
-		<select name="getCategory">
+		<select name="getCategory" class="mini-select">
 			<option value="" >選択してください</option>
 			<c:forEach items="${ categoryList }" var="category"><br />
 				<option value="${ category.category }" <c:if test="${ category.category == reCategory }" > selected </c:if> >

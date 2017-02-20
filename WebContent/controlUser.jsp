@@ -53,7 +53,7 @@
 	<a href="./">ホーム</a><br /><br />
 
 	<a href="./signUp">ユーザー新規登録</a>
-<br /><br />
+<br />
 
 				<font color="red">
 				<c:out value="${ urlErrorMessage }" />
