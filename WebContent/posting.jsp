@@ -15,18 +15,20 @@
 <h2>新規投稿画面</h2>
 </div>
 
-	<font color="red">
+<a href="./">ホーム</a>
+<br /><br />
+
+	<div class="error">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message">
 			<c:out value="${ message }" /><br />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
-	</font>
+	</div>
 
-<a href="./">ホーム</a>
 
-<br /><br />
+<br />
 
 
 <form action="./posting" method="post">

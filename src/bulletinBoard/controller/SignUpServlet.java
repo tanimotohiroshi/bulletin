@@ -96,9 +96,13 @@ public class SignUpServlet extends HttpServlet {
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		String name = request.getParameter("name");
+		int branchId = Integer.parseInt(request.getParameter("branchId"));
+		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
+
+
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
-			messages.add("ログインIDは半角英数字6文字以上20文字以内で");
+			messages.add("ログインIDは半角英数字6文字以上20文字以内で入力してください");
 		}
 
 		if (!password1.equals(password2)) {
@@ -106,12 +110,20 @@ public class SignUpServlet extends HttpServlet {
 		}
 
 		if (!password1.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
-			messages.add("パスワードは半角英数字6文字以上255文字以内で");
+			messages.add("パスワードは半角英数字6文字以上255文字以内で入力してください");
 		}
 
 
 		if (name.length() < 1 || name.length() > 11) {
-			messages.add("名前は1文字以上10文字以内で");
+			messages.add("名前は1文字以上10文字以内で入力してください");
+		}
+
+		if ( departmentId == 1 && branchId != 1) {
+			messages.add("役職と支店を確認してください");
+		}
+
+		if ( departmentId == 2 && branchId != 1) {
+			messages.add("役職と支店を確認してください");
 		}
 
 		if (messages.size() == 0) {

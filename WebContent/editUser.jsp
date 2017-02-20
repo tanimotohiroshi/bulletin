@@ -13,16 +13,16 @@
 <title>ユーザー編集画面</title>
 </head>
 <body>
-<div class="main-contents">
+<div class="posting-contents">
 
 <div class="title">
-<h3>ユーザー編集画面</h3>
+<h2>ユーザー編集画面</h2>
 </div>
 
 <a href="controlUser">ユーザー管理画面へ</a>
 
 
-<font color="red">
+<div class="error">
 	<c:if test="${ not empty editErrorMessages }">
 	<br />
 		<c:forEach items="${ editErrorMessages }" var="message"><br />
@@ -30,7 +30,7 @@
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
-</font>
+</div>
 
 
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/*")
+@WebFilter(urlPatterns = {"/*"})
 
 public class LoginFilter implements Filter {
 
@@ -26,14 +26,16 @@ public class LoginFilter implements Filter {
 			Object loginCheck = session.getAttribute("loginUser");
 
 			if (loginCheck == null ){
-				if ( target.equals("/bulletinBoard/login")) {
+				if (target.equals("./css/style.css/")){
 					chain.doFilter(request, response);
-				} else {
+				}else if ( target.equals("/bulletinBoard/login")) {
+					chain.doFilter(request, response);
+				}else {
 					((HttpServletResponse) response).sendRedirect("login");
 					return;
 				}
 			} else {
-			chain.doFilter(request, response);
+				chain.doFilter(request, response);
 			}
 
 		} catch (ServletException se) {

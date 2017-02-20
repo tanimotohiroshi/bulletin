@@ -78,6 +78,8 @@ public class PostingServlet extends HttpServlet {
 			response.sendRedirect("./");
 
 		} else {
+			posting.setCategory(category);
+			session.setAttribute("reCategory", selectCategory);
 			session.setAttribute("errorMessages", messages);
 			session.setAttribute("posting", posting);
 			response.sendRedirect("./posting");

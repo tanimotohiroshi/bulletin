@@ -46,11 +46,7 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("categoryList", categoryList);
 
 		boolean homePostings;
-		if (user != null) {
-			homePostings = true;
-		} else {
-			homePostings = false;
-		}
+		homePostings = true;
 
 		/* 入力値の保持 */
 		String category = request.getParameter("getCategory");
@@ -77,7 +73,7 @@ public class HomeServlet extends HttpServlet {
 		if (!StringUtils.isEmpty(request.getParameter("endDate")) == true) {
 			endDate = request.getParameter("endDate") + " 23:59:59";
 		}
-
+//
 //		System.out.println(startDate);
 //		System.out.println(endDate);
 //
@@ -88,27 +84,13 @@ public class HomeServlet extends HttpServlet {
 //			try{
 //				Date compareDate1 = DateFormat.getDateInstance().parse(startDate);
 //				Date compareDate2 = DateFormat.getDateInstance().parse(endDate);
-//
 //				int compareTime = compareDate1.compareTo(compareDate2);
 //				if (compareTime > 0) {
 //
 //					timeErrorMessages.add("検索開始日時を確認してください");
 //					request.setAttribute("controlErrorMessages", timeErrorMessages);
 //					request.getRequestDispatcher("home.jsp").forward(request, response);
-//
-//				} else {
-//
-//					List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);
-//
-//					session.setAttribute("postings", validPostings);
-//					request.setAttribute("homePosting", homePostings);
-//
-//					List<UserComment> comments = new CommentService().getComment();
-//					session.setAttribute("comments", comments);
-//
-//					request.getRequestDispatcher("home.jsp").forward(request, response);
-//
-//
+//					return;
 //				}
 //
 //			}catch ( ParseException e) {
@@ -116,6 +98,7 @@ public class HomeServlet extends HttpServlet {
 //				request.setAttribute("controlErrorMessages", timeErrorMessages);
 //				request.getRequestDispatcher("home.jsp").forward(request, response);
 //			}
+//
 //		}
 
 		List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);

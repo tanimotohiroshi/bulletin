@@ -53,12 +53,17 @@
 	<a href="./">ホーム</a><br /><br />
 
 	<a href="./signUp">ユーザー新規登録</a>
-<br />
+<br /><br />
 
-				<font color="red">
-				<c:out value="${ urlErrorMessage }" />
-				</font>
 
+	<div class="error">
+	<c:if test="${ not empty urlErrorMessages }">
+		<c:forEach items="${ urlErrorMessages }" var="message">
+			<c:out value="${ message }" />
+		</c:forEach>
+		<c:remove var="urlErrorMessages" scope="session"/>
+	</c:if>
+	</div>
 
 	<table border="3" align="center">
 	<tr>

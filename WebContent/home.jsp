@@ -68,14 +68,14 @@
 <br /><br />
 
 
-		<font color="red">
+		<div class="error">
 			<c:if test="${ not empty errorMessages }">
 				<c:forEach items="${ errorMessages }" var="messages" >
 					<c:out value="${ messages }" /><br /><br />
 				</c:forEach>
 				<c:remove var="errorMessages" scope="session"/>
 			</c:if>
-		</font>
+		</div>
 
 
 
@@ -83,7 +83,7 @@
 
 
 <div class="subtitle">
- 	<a>カテゴリーと日付による指定</a>
+ 	<a>カテゴリーと日付による検索</a>
 </div>
 
 
@@ -161,17 +161,17 @@
 				<div class="line"></div>
 				<br />
 
-				<div class="title">コメント</div>
+
+	 			<div class="left-text">
+
+	 			<div class="title">コメント</div>
 				<br />
-
-
-	 			<div class="comment-form">
 
 				<c:forEach items="${ comments }" var="comment" >
 
 				<c:if test="${ posting.id == comment.postingId }" >
 					<font color="#82636b" >名前　　</font>
-					<c:out value="${ comment.name }" /><br /><br />
+					<c:out value="${ comment.name }" /><br />
 					<font color="#82636b" >コメント</font>
 					<div class="message">
 					<pre><c:out value="${ comment.message }" /></pre>

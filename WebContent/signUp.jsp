@@ -15,17 +15,19 @@
 
 
 
-<div class="main-contents">
-	<div class="title">
-	<h2>ユーザー新規登録画面</h2>
-	</div>
+<div class="posting-contents">
+
+
+<div class="title">
+<h2>ユーザー新規登録画面</h2>
+</div>
 
 	<br />
 	<a href="controlUser">ユーザー管理画面へ</a>
 
 	<br /><br />
 
-	<font color="red">
+	<div class="error">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message">
 			<c:out value="${ message }" /><br />
@@ -33,24 +35,24 @@
 		<c:remove var="errorMessages" scope="session"/>
 	<br />
 	</c:if>
-	</font>
+	</div>
 
 
 	<form action="./signUp" method="post">
 
 		<div class="name">ログインID</div>
 		<input name="loginId" id="loginId" maxlength="20"
-		value="${ editUser.loginId }" /><br />
+		value="${ editUser.loginId }" /><br /><br />
 
 		<div class="name">パスワード</div>
-		<input name="password1" id="password" type="password" maxlength="255"  /><br />
+		<input name="password1" id="password" type="password" maxlength="255"  /><br /><br />
 
 		<div class="name">パスワード(確認用)</div>
-		<input name="password2" id="password" type="password" maxlength="255"  /><br />
+		<input name="password2" id="password" type="password" maxlength="255"  /><br /><br />
 
 
 		<div class="name">名前</div>
-		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br />
+		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br /><br />
 
 
 		<div class="name">支店</div>
@@ -59,7 +61,7 @@
 				<option value="${ branch.id }" <c:if test="${ branch.id == editUser.branchId }"> selected </c:if>>
 				<c:out value="${ branch.name }" /></option>
 			</c:forEach>
-		</select>
+		</select><br />
 
 
 

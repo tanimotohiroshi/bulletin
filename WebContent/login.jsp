@@ -17,14 +17,14 @@
 <h3>ログイン画面</h3>
 </div>
 
-	<font color="red">
+	<div class="error">
 	<c:if test="${ not empty errorMessages }">
 		<c:forEach items="${ errorMessages }" var="message">
 			<c:out value="${ message }" />
 		</c:forEach>
 		<c:remove var="errorMessages" scope="session"/>
 	</c:if>
-	</font>
+	</div>
 
 <br /><br />
 
@@ -34,7 +34,7 @@
 
 		<div class="subtitle">ログインIDを入力してください</div>
 		<input name="loginId" id="loginId" /><br />
-<br />
+	<br />
 		<div class="subtitle">パスワードを入力してください</div>
 		<input name="password" type="password" id="password" /><br /><br />
 

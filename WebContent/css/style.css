@@ -25,6 +25,10 @@ body {
     padding: 2em;
 }
 
+.left-text {
+	text-align: left;
+}
+
 .title {
 	font-size: 30px;
 	color: #82636b;

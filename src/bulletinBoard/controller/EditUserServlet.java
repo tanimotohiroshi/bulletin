@@ -28,6 +28,8 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		HttpSession session = request.getSession();
+
 		/*ページの切り替えのたびにユーザー情報を更新*/
 		User user1 = (User) request.getSession().getAttribute("loginUser");
 		int userId = user1.getId();
@@ -45,18 +47,30 @@ public class EditUserServlet extends HttpServlet {
 		List<Department> departmentList = new DepartmentService().getDepartment();
 		departmentSession.setAttribute("departmentList", departmentList);
 
+		List<String> messages = new ArrayList<String>();
 
 		if ( StringUtils.isEmpty(request.getParameter("id")) == false && request.getParameter("id").matches("[0-9]+$")) {
-			int id = Integer.parseInt(request.getParameter("id"));
-			User user = new UserService().getUserId(id);
+			try{
+				int id = Integer.parseInt(request.getParameter("id"));
+				User user = new UserService().getUserId(id);
+				if ( user == null) {
+					messages.add("不正なユーザー情報です");
+					session.setAttribute("urlErrorMessages", messages);
+					response.sendRedirect("./controlUser");
+				} else {
+					request.setAttribute("editUserReading", user);
+					request.getRequestDispatcher("editUser.jsp").forward(request, response);
+				}
+			} catch ( NumberFormatException e) {
+				messages.add("不正なユーザー情報です");
+				session.setAttribute("urlErrorMessages", messages);
+				response.sendRedirect("./controlUser");
+			}
 
-			request.setAttribute("editUserReading", user);
-			request.getRequestDispatcher("editUser.jsp").forward(request, response);
 		} else {
-			List<String> messages = new ArrayList<String>();
 			messages.add("不正なユーザー情報です");
-			request.setAttribute("urlErrorMessage", messages);
-			request.getRequestDispatcher("controlUser.jsp").forward(request, response);
+			session.setAttribute("urlErrorMessages", messages);
+			response.sendRedirect("./controlUser");
 		}
 
 	}
@@ -129,6 +143,9 @@ public class EditUserServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String password1 = request.getParameter("password1");// 入力用パスワード
 		String password2 = request.getParameter("password2");// 確認用パスワード
+		int branchId = Integer.parseInt(request.getParameter("branchId"));
+		int departmentId = Integer.parseInt(request.getParameter("departmentId"));
+
 
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
@@ -150,6 +167,15 @@ public class EditUserServlet extends HttpServlet {
 		if (name.length() < 1 || name.length() >11) {
 			messages.add("名前は1文字以上もしくは10文字以内で");
 		}
+
+		if ( departmentId == 1 && branchId != 1) {
+			messages.add("役職と支店を確認してください");
+		}
+
+		if ( departmentId == 2 && branchId != 1) {
+			messages.add("役職と支店を確認してください");
+		}
+
 
 		if (messages.size() == 0) {
 			return true;
