@@ -128,10 +128,11 @@ public class UserPostingDao {
 			sql.append("select");
 			sql.append(" name, users.id as userId, postings.title,  users.branch_id as branchId,"
 					+ " postings.message, postings.category, postings.insert_date, postings.id ");
-			sql.append(" from users left join postings on users.id = postings.user_id ");
+			sql.append(" from users inner join postings on users.id = postings.user_id ");
 			sql.append(" order by insert_date;");
 
 			ps = connection.prepareStatement(sql.toString());
+
 
 			ResultSet rs = ps.executeQuery();
 			List<UserPostings> ret = toUserPostingsList(rs);

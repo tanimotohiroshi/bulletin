@@ -2,7 +2,9 @@ package bulletinBoard.controller;
 
 import java.io.IOException;
 import java.rmi.ServerException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -63,7 +65,7 @@ public class HomeServlet extends HttpServlet {
 
 		/* 今の日付と時間を文字列で */
 		Date date = new Date();
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String endDate = sdf1.format(date);
 
 		if (!StringUtils.isEmpty(request.getParameter("startDate")) == true) {
@@ -73,33 +75,28 @@ public class HomeServlet extends HttpServlet {
 		if (!StringUtils.isEmpty(request.getParameter("endDate")) == true) {
 			endDate = request.getParameter("endDate") + " 23:59:59";
 		}
-//
-//		System.out.println(startDate);
-//		System.out.println(endDate);
-//
-//		/* 検索開始時間を調べる */
-//		List<String> timeErrorMessages = new ArrayList<String>();
-//
-//		if ( StringUtils.isEmpty(startDate) == false) {
-//			try{
-//				Date compareDate1 = DateFormat.getDateInstance().parse(startDate);
-//				Date compareDate2 = DateFormat.getDateInstance().parse(endDate);
-//				int compareTime = compareDate1.compareTo(compareDate2);
-//				if (compareTime > 0) {
-//
-//					timeErrorMessages.add("検索開始日時を確認してください");
-//					request.setAttribute("controlErrorMessages", timeErrorMessages);
-//					request.getRequestDispatcher("home.jsp").forward(request, response);
-//					return;
-//				}
-//
-//			}catch ( ParseException e) {
-//				timeErrorMessages.add("予期せぬエラーが発生しました。");
-//				request.setAttribute("controlErrorMessages", timeErrorMessages);
-//				request.getRequestDispatcher("home.jsp").forward(request, response);
-//			}
-//
-//		}
+
+		/* 検索開始時間を調べる */
+		List<String> timeErrorMessages = new ArrayList<String>();
+
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			Date compareDate1 = sdf.parse(startDate);
+			Date compareDate2 = sdf.parse(endDate);
+
+			if (compareDate1.getTime() > compareDate2.getTime() || compareDate1.getTime() > date.getTime()) {
+
+				timeErrorMessages.add("検索開始日時を確認してください");
+				request.setAttribute("controlErrorMessages", timeErrorMessages);
+				request.getRequestDispatcher("home.jsp").forward(request, response);
+				return;
+			}
+
+		} catch (ParseException e) {
+			timeErrorMessages.add("予期せぬエラーが発生しました。");
+			request.setAttribute("controlErrorMessages", timeErrorMessages);
+		}
 
 		List<UserPostings> validPostings = new PostingService().validPosting(startDate, endDate, category);
 
