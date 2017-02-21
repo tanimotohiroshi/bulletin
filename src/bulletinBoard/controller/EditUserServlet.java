@@ -54,21 +54,22 @@ public class EditUserServlet extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				User user = new UserService().getUserId(id);
 				if ( user == null) {
-					messages.add("不正なユーザー情報です");
+					messages.add("不正なIDです");
 					session.setAttribute("urlErrorMessages", messages);
 					response.sendRedirect("./controlUser");
 				} else {
+					request.setAttribute("selectUserId", id);
 					request.setAttribute("editUserReading", user);
 					request.getRequestDispatcher("editUser.jsp").forward(request, response);
 				}
 			} catch ( NumberFormatException e) {
-				messages.add("不正なユーザー情報です");
+				messages.add("不正なIDです");
 				session.setAttribute("urlErrorMessages", messages);
 				response.sendRedirect("./controlUser");
 			}
 
 		} else {
-			messages.add("不正なユーザー情報です");
+			messages.add("不正なIDです");
 			session.setAttribute("urlErrorMessages", messages);
 			response.sendRedirect("./controlUser");
 		}

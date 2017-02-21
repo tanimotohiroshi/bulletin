@@ -58,7 +58,7 @@
 		</div><br /><br />
 		<a href="./">ホーム</a>			  <a href="posting">新規投稿</a>
 		<c:if test="${ loginUser.departmentId == 1 }">
-		<a href="controlUser">ユーザー管理画面へ</a>
+		<a href="controlUser">ユーザー管理画面</a>
 		</c:if> <br /><br />
 		<a href="logout">ログアウト</a>
 		<br /><br />

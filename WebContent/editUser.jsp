@@ -19,12 +19,11 @@
 <h2>ユーザー編集画面</h2>
 </div>
 
-<a href="controlUser">ユーザー管理画面へ</a>
+<a href="controlUser">ユーザー管理画面</a>
 
 
 <div class="error">
 	<c:if test="${ not empty editErrorMessages }">
-	<br />
 		<c:forEach items="${ editErrorMessages }" var="message"><br />
 			<c:out value="${ message }" />
 		</c:forEach>
@@ -57,6 +56,7 @@
 		value="${ editUserReading.name }"/><br />
 
 
+		<c:if test="${ loginUser.id != selectUserId  }">
 		<div class="subtitle">支店</div>
 		<select name="branchId" class="signUp-select" >
 			<c:forEach items="${ branchList }" var="branch"><br />
@@ -64,9 +64,10 @@
 				<c:out value="${ branch.name }" /></option>
 			</c:forEach>
 		</select>
+		</c:if>
 
 
-
+		<c:if test="${ loginUser.id != selectUserId  }">
 		<div class="subtitle">役職</div>
 		<select name="departmentId" class="signUp-select">
 			<c:forEach items="${ departmentList }" var="department"><br />
@@ -74,6 +75,7 @@
 				<c:out value="${ department.name }" /></option>
 			</c:forEach>
 		</select>
+		</c:if>
 		<br />
 		<br />
 

@@ -52,32 +52,30 @@
 
 	<a href="./">ホーム</a><br /><br />
 
-	<a href="./signUp">ユーザー新規登録</a>
-<br /><br />
+	<a href="./signUp">ユーザー新規登録</a><br /><br />
 
-
-	<div class="error">
 	<c:if test="${ not empty urlErrorMessages }">
+	<span class="error">
 		<c:forEach items="${ urlErrorMessages }" var="message">
 			<c:out value="${ message }" />
 		</c:forEach>
 		<c:remove var="urlErrorMessages" scope="session"/>
+	</span>
 	</c:if>
-	</div>
+
+
 
 	<table border="3" align="center">
 	<tr>
-	<th>ログインID</th>
-	<th>名前</th>
-	<th>支店名</th>
-	<th>役職名</th>
-	<th>ユーザー編集</th>
-	<th>復活・停止</th>
-	<th>削除</th>
+	<td>ログインID</td>
+	<td>名前</td>
+	<td>支店名</td>
+	<td>役職名</td>
+	<td>ユーザー編集</td>
+	<td>復活・停止</td>
+	<td>削除</td>
 	</tr>
-
 		<c:forEach items="${ userList }" var="user">
-		<br />
 			<tr>
 			<th><c:out value="${ user.loginId }" /></th>
 			<th><c:out value="${ user.name }" /></th>
@@ -112,13 +110,11 @@
 
 			<th>
 			<c:if test="${ user.id != loginUser.id }" >
-			<form action="./controlUser" method="post" >
-				<input type="hidden" name="id" value="${ user.id }" />
-				<input type="hidden" name="delete" value="delete" />
-				<input type="submit" class="red-btn" value="削除" onClick="return deleteDisp();" />
-
-			</form>
-
+				<form action="./controlUser" method="post" >
+					<input type="hidden" name="id" value="${ user.id }" />
+					<input type="hidden" name="delete" value="delete" />
+					<input type="submit" class="red-btn" value="削除" onClick="return deleteDisp();" />
+				</form>
 			</c:if>
 			</th>
 			</tr>
@@ -126,10 +122,6 @@
 	</table>
 
 
-<br /><br />
-
-
-<br /><br /><br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
 </div>
