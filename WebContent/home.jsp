@@ -216,7 +216,10 @@
 	</div>
 
 <br />
+<div class="text-right">
 <a href="./">ホーム</a>
+</div>
+
 <br /><br />
 
 	<div class="copyright">copyright(c) tanimotohiroshi</div>
