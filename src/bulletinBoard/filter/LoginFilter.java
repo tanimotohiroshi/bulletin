@@ -22,13 +22,12 @@ public class LoginFilter implements Filter {
 		try {
 			/*targetにrequestのURIがあるからログイン画面のURIとまっちするか*/
 			String target = ((HttpServletRequest)request).getRequestURI();
+			System.out.println(target);
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			Object loginCheck = session.getAttribute("loginUser");
 
 			if (loginCheck == null ){
-				if (target.equals("./css/style.css/")){
-					chain.doFilter(request, response);
-				}else if ( target.equals("/bulletinBoard/login")) {
+				if (target.equals("/bulletinBoard/css/style.css") || target.equals("/bulletinBoard/login")){
 					chain.doFilter(request, response);
 				}else {
 					((HttpServletResponse) response).sendRedirect("login");
