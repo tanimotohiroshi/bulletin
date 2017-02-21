@@ -22,8 +22,8 @@
 <h2>ユーザー新規登録画面</h2>
 </div>
 
-	<br />
-	<a href="controlUser">ユーザー管理画面へ</a>
+
+	<a href="controlUser">ユーザー管理画面</a>
 
 	<br /><br />
 
@@ -42,17 +42,17 @@
 
 		<div class="name">ログインID</div>
 		<input name="loginId" id="loginId" maxlength="20"
-		value="${ editUser.loginId }" /><br /><br />
+		value="${ editUser.loginId }" /><br />
 
 		<div class="name">パスワード</div>
-		<input name="password1" id="password" type="password" maxlength="255"  /><br /><br />
+		<input name="password1" id="password" type="password" maxlength="255"  /><br />
 
 		<div class="name">パスワード(確認用)</div>
-		<input name="password2" id="password" type="password" maxlength="255"  /><br /><br />
+		<input name="password2" id="password" type="password" maxlength="255"  /><br />
 
 
 		<div class="name">名前</div>
-		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br /><br />
+		<input name="name" id="name" maxlength="10" value="${ editUser.name }" /><br />
 
 
 		<div class="name">支店</div>
