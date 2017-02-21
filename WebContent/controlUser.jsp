@@ -121,7 +121,7 @@
 		</c:forEach>
 	</table>
 
-
+<br /><br />
 <div class="copyright">Copyright(c)Tanimoto Hiroshi</div>
 
 </div>

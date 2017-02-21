@@ -89,7 +89,7 @@
 
 <div class="posting-box">
  	<form action="./" method="get">
-		<div class="name"><label for="category">カテゴリー(未選択の場合は全てのカテゴリーを選択)</label>
+		<div class="name"><label for="category">カテゴリー</label>
 		</div><br >
 
 		<select name="getCategory" class="select">
@@ -119,23 +119,26 @@
 
 		<div class="postings">
 
-
 			<c:forEach items="${ postings }" var="posting">
 			<br /><br />
 			<div class="title">投稿</div>
 			<div class="posting-box" >
-				<div class="name"><a>タイトル</a></div><br />
+			<div class="left-text">
+
+			<span class="name"><a>投稿者　</a></span>
+				<c:out value="${ posting.name }" /><a>　　</a>
+				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" />
+			<span class="name"><a>　カテゴリー　</a></span>
+				<c:out value="${ posting.category }" /><br /><br />
+
+				<div class="name"><a>タイトル</a></div>
+				<span class="message">
 				<c:out value="${ posting.title }" /><br /><br />
+				</span>
 				<div class="name"><a>投稿内容</a></div>
 				<div class="message">
 				<pre><c:out value="${ posting.message }" /></pre>
 				</div>
-				<div class="name"><a>投稿者</a></div>
-				<c:out value="${ posting.name }" />
-				<div class="name"><a>カテゴリー</a></div>
-				<c:out value="${ posting.category }" /><br />
-				<div class="name">投稿日時</div>
-				<fmt:formatDate value="${ posting.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /><br /><br />
 
 
 
@@ -156,6 +159,7 @@
 					</form>
 
 				<br /><br />
+			</div>
 
 
 				<div class="line"></div>
@@ -164,7 +168,7 @@
 
 	 			<div class="left-text">
 
-	 			<div class="title">コメント</div>
+	 			<div class="subtitle">コメント</div>
 				<br />
 
 				<c:forEach items="${ comments }" var="comment" >

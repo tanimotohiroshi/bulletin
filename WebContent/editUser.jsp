@@ -66,6 +66,10 @@
 		</select>
 		</c:if>
 
+		<c:if test="${ loginUser.id == selectUserId }">
+		<input type="hidden" name="branchId" value="${  editUserReading.branchId }">
+		</c:if>
+
 
 		<c:if test="${ loginUser.id != selectUserId  }">
 		<div class="subtitle">役職</div>
@@ -76,6 +80,11 @@
 			</c:forEach>
 		</select>
 		</c:if>
+
+		<c:if test="${ loginUser.id == selectUserId }">
+		<input type="hidden" name="departmentId" value="${ editUserReading.departmentId }">
+		</c:if>
+
 		<br />
 		<br />
 
