@@ -177,6 +177,14 @@ public class EditUserServlet extends HttpServlet {
 			messages.add("役職と支店を確認してください");
 		}
 
+		if ( departmentId == 3 && branchId == 1) {
+			messages.add("役職と支店を確認してください");
+		}
+
+		if ( departmentId == 4 && branchId == 1) {
+			messages.add("役職と支店を確認してください");
+		}
+
 
 		if (messages.size() == 0) {
 			return true;
