@@ -28,14 +28,20 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		HttpSession session = request.getSession();
 
 		/*ページの切り替えのたびにユーザー情報を更新*/
-		User user1 = (User) request.getSession().getAttribute("loginUser");
-		int userId = user1.getId();
+		HttpSession session = request.getSession();
+		User user2 = (User) request.getSession().getAttribute("loginUser");
+		int id1 = user2.getId();
 		UserService userService = new UserService();
-		User user2 = userService.getUserId(userId);
-		request.setAttribute("loginUser", user2);
+		User user1 = userService.getUserId(id1);
+		if ( user1 == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			session.invalidate();
+			return;
+		} else {
+			session.setAttribute("loginUser", user1);
+		}
 
 		/* 支店、役職のセレクトボックスのsession */
 		HttpSession branchSession = request.getSession();
@@ -150,7 +156,7 @@ public class EditUserServlet extends HttpServlet {
 
 
 		if (!loginId.matches("[a-zA-Z0-9]{6,20}")) {
-			messages.add("ログインIDは半角英数字6文字以上20文字以内で");
+			messages.add("ログインIDを入力してください");
 		}
 
 
@@ -160,13 +166,13 @@ public class EditUserServlet extends HttpServlet {
 
 		if (password1.length() != 0 || password2.length() != 0) {
 			if (!password1.matches("[a-zA-Z0-9 -/:-@\\[-\\`\\{-\\~]{6,255}")) {
-				messages.add("パスワードは半角英数字6文字以上255文字以内で");
+				messages.add("パスワードを入力してください");
 			}
 		}
 
 
 		if (name.length() < 1 || name.length() >11) {
-			messages.add("名前は1文字以上もしくは10文字以内で");
+			messages.add("名前を入力してください");
 		}
 
 		if ( departmentId == 1 && branchId != 1) {

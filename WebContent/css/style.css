@@ -39,9 +39,15 @@ body {
 }
 
 .subtitle{
-	font-size: 23px;
+	font-size: 24px;
 	color: #82636b;
 }
+
+.posting-title{
+	font-size: 13px;
+	color: #82636b;
+}
+
 
 .name{
 	font-size: 20px;

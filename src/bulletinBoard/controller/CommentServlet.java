@@ -26,11 +26,18 @@ public class CommentServlet extends HttpServlet {
 			throws IOException, ServletException {
 
 		/*ページの切り替えのたびにユーザー情報を更新*/
+		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("loginUser");
 		int id = user.getId();
 		UserService userService = new UserService();
 		User user1 = userService.getUserId(id);
-		request.setAttribute("loginUser", user1);
+		if ( user1 == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			session.invalidate();
+			return;
+		} else {
+			session.setAttribute("loginUser", user1);
+		}
 
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}

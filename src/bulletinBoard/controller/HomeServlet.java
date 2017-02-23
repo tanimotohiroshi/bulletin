@@ -41,7 +41,15 @@ public class HomeServlet extends HttpServlet {
 		int id = user.getId();
 		UserService userService = new UserService();
 		User user1 = userService.getUserId(id);
-		session.setAttribute("loginUser", user1);
+
+		if ( user1 == null){
+			session.invalidate();
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		} else {
+			session.setAttribute("loginUser", user1);
+		}
+
 
 		/* カテゴリー表示 */
 		List<Category> categoryList = new CategoryService().getCategory();

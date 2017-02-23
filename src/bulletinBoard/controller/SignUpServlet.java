@@ -27,11 +27,18 @@ public class SignUpServlet extends HttpServlet {
 			throws IOException,ServletException {
 
 		/*ページの切り替えのたびにユーザー情報を更新*/
-		User user = (User) request.getSession().getAttribute("loginUser");
-		int id = user.getId();
+		HttpSession session = request.getSession();
+		User user2 = (User) request.getSession().getAttribute("loginUser");
+		int id1 = user2.getId();
 		UserService userService = new UserService();
-		User user1 = userService.getUserId(id);
-		request.setAttribute("loginUser", user1);
+		User user1 = userService.getUserId(id1);
+		if ( user1 == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			session.invalidate();
+			return;
+		} else {
+			session.setAttribute("loginUser", user1);
+		}
 
 		HttpSession branchSession = request.getSession();
 		HttpSession departmentSession = request.getSession();
